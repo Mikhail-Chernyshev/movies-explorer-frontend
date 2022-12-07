@@ -1,0 +1,8 @@
+.movies-card-list {
+  margin: 0;
+  padding: 70px 70px 30px 70px;
+  height: 1174px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}

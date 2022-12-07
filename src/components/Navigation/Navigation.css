@@ -1,0 +1,21 @@
+.navigation {
+  margin: 0 70px 0 0;
+  padding: 0;
+  display: flex;
+}
+.navigation__item {
+  padding: 8px 0 0 0 ;
+  margin: 0 20px 0 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+.navigation__account {
+  padding: 8px 0 0 0;
+  margin: 0 0 0 30px;
+  width: 100px;
+  height: 22px;
+  border-radius: 20px;
+  background-color: #f8f8f8;
+  text-align: center;
+}

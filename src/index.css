@@ -1,0 +1,6 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+html {
+    width: 1280px;
+    margin: 0 auto;
+}

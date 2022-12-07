@@ -1,0 +1,55 @@
+.footer {
+  margin: 0;
+  padding: 79px 70px 0 70px;
+  height: 93px;
+}
+.footer__title {
+  margin: 0 auto 20px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #a0a0a0;
+}
+.footer__line {
+  margin: 0 0 20px 0;
+  padding: 0;
+  width: 1140px;
+  height: 0px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.footer__wrapper {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__year {
+  margin: 0;
+  padding: 0;
+  width: 48px;
+  height: 16px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+.footer__companys {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.footer__company {
+  margin: 0;
+  padding: 0;
+  height: 16px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  margin-right: 20px;
+  text-decoration: none;
+  color: #000000;
+}
+.footer__company:last-child {
+  margin-right: 0;
+}
