@@ -1,5 +1,22 @@
-.App {
+.page {
   border: 1px solid gray;
+  position: relative;
   width: 1280px;
+  margin: 0 auto;
+  font-family: 'Inter', Arial, sans-serif;
   font-family: 'inter', Arial, Helvetica, sans-serif;
+}
+@media screen and (max-width: 1279px) {
+  .elements {
+  }
+}
+@media screen and (max-width: 1023px) {
+  .page {
+    max-width: 768px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .elements {
+  }
 }

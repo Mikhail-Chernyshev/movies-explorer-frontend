@@ -92,3 +92,31 @@
   color: #000000;
   text-align: center;
 }
+@media screen and (max-width: 1023px) {
+  .about-project {
+    margin: 0 50px;
+    height: 495px;
+    padding: 90px 0 0 0;
+  }
+  .about-project__backend-color {
+    width: 140px;
+  }
+  .about-project__frontend-color {
+    width: 528px;
+  }
+  .about-project__frontend-text {
+    width: 528px;
+  }
+  .about-project__backend-text {
+    width: 140px;
+  }
+  .about-project__line {
+    width: 668px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__logo {
+    /* margin: 0 50px; */
+  }
+}

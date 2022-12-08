@@ -10,9 +10,9 @@ import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
-    <div className='App'>
+    <div className='page'>
       <Routes>
         <Route path='/' element={<Main loggedIn={isLoggedIn} />}></Route>
       </Routes>
@@ -36,11 +36,11 @@ function App() {
           element={<Register loggedIn={isLoggedIn} />}
         ></Route>
         <Route path='/signin' element={<Login loggedIn={isLoggedIn} />}></Route>
-        <Route
-          path='/*'
-          // element={isLoggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />}
-          element={<NotFound />}
-        />
+        {/* <Route */}
+          {/* // path='*' */}
+          {/* // element={isLoggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />} */}
+          {/* element={<NotFound />} */}
+        {/* /> */}
       </Routes>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import './NotFound.css';
 import { Link } from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
 
 export default function NotFound() {
   return (

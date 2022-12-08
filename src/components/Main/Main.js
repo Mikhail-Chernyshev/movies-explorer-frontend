@@ -8,11 +8,13 @@ import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
 import Footer from '../Footer/Footer';
 import './Main.css';
+import Preloader from '../Preloader/Preloader';
 
 export default function Main({ loggedIn }) {
   return (
     <div className='main'>
       <Header loggedIn={loggedIn} />
+      {/* <Preloader/> */}
       <Promo />
       <NavTab />
       <AboutProject />

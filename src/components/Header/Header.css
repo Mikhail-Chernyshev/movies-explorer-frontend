@@ -39,3 +39,20 @@
   width: 77px;
   background-color: #ffffff;
 }
+
+@media screen and (max-width: 1023px) {
+  .header__logo {
+    margin-left: 30px;
+    
+  }
+  .header__wrapper {
+    margin-right: 30px;
+  }
+  
+}
+
+@media screen and (max-width: 767px) {
+  .header__logo {
+     
+  }
+}

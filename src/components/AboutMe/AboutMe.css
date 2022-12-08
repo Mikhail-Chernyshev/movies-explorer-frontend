@@ -6,7 +6,7 @@
 .about-me__title {
   padding: 0;
   margin: 0px 540px 23px 0px;
-  width: 600px;
+  max-width: 600px;
   font-weight: 400;
   font-size: 22px;
   line-height: 26.63px;
@@ -14,7 +14,7 @@
 .about-me__line {
   margin: 0;
   padding: 0;
-  width: 1140px;
+  max-width: 1140px;
   height: 0px;
   border-bottom: 1px solid black;
 }
@@ -28,12 +28,12 @@
 .about-me__column {
   margin: 0;
   padding: 0;
-  width: 600px;
+  max-width: 600px;
 }
 .about-me__subtitle {
   margin: 66px 0px 18px 0px;
   padding: 0;
-  width: 600px;
+  max-width: 600px;
   height: 58px;
   font-weight: 400;
   font-size: 50px;
@@ -66,7 +66,7 @@
 .about-me__photo {
   padding: 0;
   margin: 66px 0 0 0;
-  width: 270px;
+  max-width: 270px;
   height: 327px;
   border-radius: 10px;
 }
