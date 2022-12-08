@@ -4,11 +4,13 @@
   display: flex;
 }
 .navigation__item {
-  padding: 8px 0 0 0 ;
+  padding: 8px 0 0 0;
   margin: 0 20px 0 0;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
+  text-decoration: none;
+  color: #000000;
 }
 .navigation__account {
   padding: 8px 0 0 0;
@@ -18,4 +20,6 @@
   border-radius: 20px;
   background-color: #f8f8f8;
   text-align: center;
+  text-decoration: none;
+  color: #000000;
 }

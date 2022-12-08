@@ -6,7 +6,7 @@ export default function Header({loggedIn}) {
   return (
     <header className='header'>
       <div className='header__logo'></div>
-      {loggedIn ? (
+      {!loggedIn ? (
         <Navigation />
       ) : (
         <div className='header__wrapper'>
