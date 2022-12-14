@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Main from '../Main/Main';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import './App.css';
@@ -8,40 +8,92 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
+import PopupMenu from '../PopupMenu/PopupMenu';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [isOpenMenu, setisOpenMenu] = useState(false);
+
+  const handleOpenMenu = () => {
+    setisOpenMenu(true);
+  };
+  const handleCloseMenu = () => {
+    setisOpenMenu(false);
+  };
+  const breakpoint = 770;
+  useEffect(() => {
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    // subscribe to window resize event "onComponentDidMount"
+    window.addEventListener('resize', handleResizeWindow);
+    return () => {
+      // unsubscribe "onComponentDestroy"
+      window.removeEventListener('resize', handleResizeWindow);
+    };
+  }, []);
   return (
     <div className='page'>
       <Routes>
-        <Route path='/' element={<Main loggedIn={isLoggedIn} />}></Route>
+        <Route
+          path='/'
+          element={
+            <Main
+              openMenu={handleOpenMenu}
+              width={width}
+              breakpoint={breakpoint}
+              loggedIn={isLoggedIn}
+            />
+          }
+        ></Route>
       </Routes>
       <Routes>
         <Route
           path='/movies'
-          element={<Movies loggedIn={isLoggedIn} />}
+          element={
+            <Movies
+              openMenu={handleOpenMenu}
+              width={width}
+              breakpoint={breakpoint}
+              loggedIn={isLoggedIn}
+            />
+          }
         ></Route>
       </Routes>
       <Routes>
         <Route
           path='/saved-movies'
-          element={<SavedMovies loggedIn={isLoggedIn} />}
+          element={
+            <SavedMovies
+              openMenu={handleOpenMenu}
+              width={width}
+              breakpoint={breakpoint}
+              loggedIn={isLoggedIn}
+            />
+          }
         ></Route>
         <Route
           path='/profile'
-          element={<Profile loggedIn={isLoggedIn} />}
+          element={
+            <Profile
+              width={width}
+              breakpoint={breakpoint}
+              openMenu={handleOpenMenu}
+              loggedIn={isLoggedIn}
+            />
+          }
         ></Route>
         <Route
           path='/signup'
           element={<Register loggedIn={isLoggedIn} />}
         ></Route>
         <Route path='/signin' element={<Login loggedIn={isLoggedIn} />}></Route>
-        {/* <Route */}
-          {/* // path='*' */}
-          {/* // element={isLoggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />} */}
-          {/* element={<NotFound />} */}
-        {/* /> */}
+        {/* <Route
+          path='*'
+          //  element={isLoggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />}
+          element={<NotFound />}
+        /> */}
       </Routes>
+      <PopupMenu closeMenu={handleCloseMenu} isOpen={isOpenMenu} />
     </div>
   );
 }

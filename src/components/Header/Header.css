@@ -43,16 +43,20 @@
 @media screen and (max-width: 1023px) {
   .header__logo {
     margin-left: 30px;
-    
   }
   .header__wrapper {
     margin-right: 30px;
   }
-  
 }
 
 @media screen and (max-width: 767px) {
   .header__logo {
-     
+    margin-left: 14px;
+  }
+  .header__wrapper {
+    margin-right: 14px;
+  }
+  .header {
+    max-width: 320px;
   }
 }

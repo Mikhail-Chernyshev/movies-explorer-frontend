@@ -53,3 +53,11 @@
 .footer__company:last-child {
   margin-right: 0;
 }
+@media screen and (max-width: 1023px) {
+  .footer {
+    padding: 80px 30px 0 30px;
+  }
+  .footer__line {
+    width: 708px;
+  }
+}

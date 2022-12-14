@@ -1,7 +1,7 @@
 .register {
   margin: 0;
   padding: 70px 442px;
-  height: 560px;
+  height: auto;
 }
 .register__logo {
   margin: 0 0 40px 0;
@@ -73,4 +73,9 @@
   height: 17px;
   color: #a0a0a0;
   text-align: center;
+}
+@media screen and (max-width: 1023px) {
+  .register {
+    padding: 232px 186px;
+  }
 }

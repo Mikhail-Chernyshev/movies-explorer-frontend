@@ -1,7 +1,7 @@
 .techs {
   margin: 0;
   padding: 100px 70px 0 70px;
-  height: 525px;
+  height: auto;
   background-color: #f5f5f5;
 }
 .techs__title {
@@ -64,7 +64,7 @@
 @media screen and (max-width: 1023px) {
   .techs {
     padding: 90px 50px 0 50px;
-    height: 477px;
+    height: auto;
   }
   .techs__line {
     width: 668px;
@@ -86,4 +86,35 @@
 }
 
 @media screen and (max-width: 767px) {
+  .techs {
+    padding: 70px 18px;
+    background-color: white;
+  }
+  .techs__title {
+    margin: 0 0 28px 0;
+    width: auto;
+  }
+  .techs__line {
+    width: auto;
+  }
+  .techs__subtitle {
+    width: auto;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+  }
+  .techs__description {
+    height: 32px;
+    width: auto;
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+  .techs__list {
+    flex-wrap: wrap;
+    margin: 0 43px 0 53px;
+  }
+  .techs__tech-item {
+    margin-top: 10px;
+  }
 }

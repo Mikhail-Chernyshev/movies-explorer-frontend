@@ -37,6 +37,11 @@
 }
 
 @media screen and (max-width: 767px) {
-  .header__logo {
+  .navtab {
+    margin: 0 14px;
+    /* width: */
+  }
+  .navtab__item {
+    width: 82px;
   }
 }

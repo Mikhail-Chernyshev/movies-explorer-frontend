@@ -1,5 +1,5 @@
 .not-found {
-  height: 700px;
+  height: auto;
   margin: 0;
   padding: 0;
 }
@@ -32,4 +32,13 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+  margin-bottom: 60px;
+}
+@media screen and (max-width: 1023px) {
+  .not-found__error-code {
+    margin: 408px 184px 50px 184px;
+  }
+  .not-found__back {
+    margin-bottom: 222px;
+  }
 }

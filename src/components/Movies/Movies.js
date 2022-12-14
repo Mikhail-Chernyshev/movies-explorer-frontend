@@ -5,12 +5,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movies.css';
 
-export default function Movies({ loggedIn }) {
+export default function Movies({ loggedIn, width, breakpoint, openMenu }) {
   return (
     <section className='movies'>
-      <Header loggedIn={loggedIn} />
+      <Header openMenu={openMenu} width={width} breakpoint={breakpoint} loggedIn={loggedIn} />
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList width={width} breakpoint={breakpoint} />
       <Footer />
     </section>
   );

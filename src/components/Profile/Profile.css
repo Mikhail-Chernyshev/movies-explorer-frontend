@@ -1,7 +1,7 @@
 .profile {
   margin: 0;
   padding: 0;
-  height: 700px;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -47,4 +47,18 @@
 }
 .profile__button_leave {
   color: #ff4062;
+}
+@media screen and (max-width: 1023px) {
+  .profile__title {
+    margin: 236px auto 76px;
+  }
+  .profile__box {
+    margin: 17px 180px 0;
+  }
+  .profile__button_edit {
+    margin-top: 200px;
+  }
+  .profile__button_leave {
+    margin-bottom: 269px;
+  }
 }

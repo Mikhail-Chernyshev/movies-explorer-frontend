@@ -14,16 +14,18 @@ export default function SearchForm() {
           ></input>
           <button type='submit' className='search__submit'></button>
         </form>
-        <p className='search__label'>KorotkoMetragki</p>
-        <label className='search__switch'>
-          <input
-            className='search__checkbox'
-            type='checkbox'
-            //   onChange={handleCheckbox}
-            //   checked
-          />
-          <span className='search__slider'></span>
-        </label>
+        <div className='search__wrapper-2'>
+          <p className='search__label'>KorotkoMetragki</p>
+          <label className='search__switch'>
+            <input
+              className='search__checkbox'
+              type='checkbox'
+              //   onChange={handleCheckbox}
+              //   checked
+            />
+            <span className='search__slider'></span>
+          </label>
+        </div>
       </div>
 
       <div className='search__line'></div>

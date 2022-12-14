@@ -2,10 +2,15 @@ import React from 'react';
 import Header from '../Header/Header';
 import './Profile.css';
 
-export default function Profile({ loggedIn }) {
+export default function Profile({ loggedIn, openMenu, width, breakpoint }) {
   return (
     <div className='profile'>
-      <Header loggedIn={loggedIn} />
+      <Header
+        width={width}
+        breakpoint={breakpoint}
+        openMenu={openMenu}
+        loggedIn={loggedIn}
+      />
       <h2 className='profile__title'>Hi, Mikhail!</h2>
       <div className='profile__box'>
         <p className='profile__key-value'>Name</p>

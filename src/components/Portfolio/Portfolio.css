@@ -1,7 +1,7 @@
 .portfolio {
   margin: 0;
   padding: 0 70px 0 70px;
-  height: 475px;
+  height: auto;
 }
 .portfolio__title {
   margin: 0 0 50px 0;
@@ -42,4 +42,33 @@
   width: 1140px;
   height: 0px;
   border-bottom: 1px solid #e8e8e8;
+}
+@media screen and (max-width: 1023px) {
+  .portfolio {
+    padding: 0 50px;
+  }
+  .portfolio__line {
+    width: auto;
+  }
+  .portfolio__item {
+    height: 50px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding: 0px 14px;
+  }
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 40px;
+  }
+  .portfolio__subtitle {
+    font-size: 18px;
+    line-height: 28px;
+    height: 50px;
+  }
+  .portfolio__item {
+    height: 50px;
+  }
 }

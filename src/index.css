@@ -1,11 +1,11 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
-html {
-  /* width: 1280px;
-  margin: auto auto; */
-}
+
 body {
   max-width: 1280px;
   margin: auto auto;
+  display: flex;
+}
+html {
   display: flex;
 }

@@ -1,7 +1,7 @@
 .about-project {
   margin: 0 70px;
   padding: 110px 0 0 0;
-  height: 498px;
+  height: auto;
 }
 .about-project__title {
   padding: 0;
@@ -26,7 +26,7 @@
 .about-project__info {
   margin: 0 40px 110px 0;
   padding: 0;
-  width: 550px;
+  width: auto;
 }
 .about-project__info:last-child {
   margin-right: 0;
@@ -37,7 +37,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24.2px;
-  height: 24px;
+  height: auto;
 }
 .about-project__text {
   padding: 0;
@@ -45,7 +45,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  height: 40px;
+  height: auto;
 }
 .about-project__scale {
   margin: 0;
@@ -95,7 +95,7 @@
 @media screen and (max-width: 1023px) {
   .about-project {
     margin: 0 50px;
-    height: 495px;
+    height: auto;
     padding: 90px 0 0 0;
   }
   .about-project__backend-color {
@@ -116,7 +116,40 @@
 }
 
 @media screen and (max-width: 767px) {
-  .header__logo {
-    /* margin: 0 50px; */
+  .about-project {
+    margin: 0 18px;
+  }
+  .about-project__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 28px 0;
+    width: auto;
+  }
+  .about-project__line {
+    width: auto;
+  }
+  .about-project__wrapper {
+    flex-direction: column;
+  }
+  .about-project__text {
+    margin-top: 16px;
+  }
+  .about-project__info {
+    margin: 0 0 56px 0;
+  }
+  .about-project__backend-color {
+    width: 100px;
+    height: 27px;
+  }
+  .about-project__backend-text {
+    margin-top: 10px;
+    width: 100px;
+  }
+  .about-project__frontend-color {
+    width: 184px;
+  }
+  .about-project__frontend-text {
+    margin-top: 10px;
+    width: 184px;
   }
 }
