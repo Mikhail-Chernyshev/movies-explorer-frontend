@@ -2,19 +2,9 @@ import React, { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-export default function MoviesCardList({ width, breakpoint }) {
-  // const [width, setWidth] = useState(window.innerWidth);
-  // const breakpoint = 1024;
-  // useEffect(() => {
-  //   const handleResizeWindow = () => setWidth(window.innerWidth);
-  //   // subscribe to window resize event "onComponentDidMount"
-  //   window.addEventListener('resize', handleResizeWindow);
-  //   return () => {
-  //     // unsubscribe "onComponentDestroy"
-  //     window.removeEventListener('resize', handleResizeWindow);
-  //   };
-  // }, []);
-  if (width > breakpoint) {
+export default function MoviesCardList({ width, breakpointTable }) {
+
+  if (width > breakpointTable) {
     return (
       <section className='movies-card-list'>
         <MoviesCard />

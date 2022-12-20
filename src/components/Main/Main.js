@@ -10,13 +10,19 @@ import Footer from '../Footer/Footer';
 import './Main.css';
 import Preloader from '../Preloader/Preloader';
 
-export default function Main({ loggedIn, width, breakpoint, openMenu }) {
+export default function Main({
+  loggedIn,
+  width,
+  breakpointTable,
+  openMenu,
+  breakpointMobile,
+}) {
   return (
     <div className='main'>
       <Header
         openMenu={openMenu}
         width={width}
-        breakpoint={breakpoint}
+        breakpointTable={breakpointTable}
         loggedIn={loggedIn}
       />
       {/* <Preloader/> */}
@@ -26,7 +32,7 @@ export default function Main({ loggedIn, width, breakpoint, openMenu }) {
       <Techs />
       <AboutMe />
       <Portfolio />
-      <Footer />
+      <Footer width={width} breakpointMobile={breakpointMobile} />
     </div>
   );
 }

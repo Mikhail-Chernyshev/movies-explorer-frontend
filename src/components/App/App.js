@@ -21,7 +21,8 @@ function App() {
   const handleCloseMenu = () => {
     setisOpenMenu(false);
   };
-  const breakpoint = 770;
+  const breakpointTable = 770;
+  const breakpointMobile = 320;
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
     // subscribe to window resize event "onComponentDidMount"
@@ -40,33 +41,32 @@ function App() {
             <Main
               openMenu={handleOpenMenu}
               width={width}
-              breakpoint={breakpoint}
+              breakpointTable={breakpointTable}
               loggedIn={isLoggedIn}
+              breakpointMobile={breakpointMobile}
             />
           }
         ></Route>
-      </Routes>
-      <Routes>
         <Route
           path='/movies'
           element={
             <Movies
               openMenu={handleOpenMenu}
               width={width}
-              breakpoint={breakpoint}
+              breakpointTable={breakpointTable}
               loggedIn={isLoggedIn}
+              breakpointMobile={breakpointMobile}
             />
           }
         ></Route>
-      </Routes>
-      <Routes>
         <Route
           path='/saved-movies'
           element={
             <SavedMovies
               openMenu={handleOpenMenu}
               width={width}
-              breakpoint={breakpoint}
+              breakpointTable={breakpointTable}
+              breakpointMobile={breakpointMobile}
               loggedIn={isLoggedIn}
             />
           }
@@ -76,7 +76,7 @@ function App() {
           element={
             <Profile
               width={width}
-              breakpoint={breakpoint}
+              breakpointTable={breakpointTable}
               openMenu={handleOpenMenu}
               loggedIn={isLoggedIn}
             />
@@ -87,11 +87,11 @@ function App() {
           element={<Register loggedIn={isLoggedIn} />}
         ></Route>
         <Route path='/signin' element={<Login loggedIn={isLoggedIn} />}></Route>
-        {/* <Route
-          path='*'
+        <Route
+          path='/*'
           //  element={isLoggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />}
           element={<NotFound />}
-        /> */}
+        />
       </Routes>
       <PopupMenu closeMenu={handleCloseMenu} isOpen={isOpenMenu} />
     </div>

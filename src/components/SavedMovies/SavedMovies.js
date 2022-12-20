@@ -5,18 +5,24 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './SavedMovies.css';
 
-export default function SavedMovies({ loggedIn, width, breakpoint, openMenu }) {
+export default function SavedMovies({
+  loggedIn,
+  width,
+  breakpointTable,
+  openMenu,
+  breakpointMobile,
+}) {
   return (
     <div className='saved-movies'>
       <Header
         openMenu={openMenu}
         width={width}
-        breakpoint={breakpoint}
+        breakpointTable={breakpointTable}
         loggedIn={loggedIn}
       />
       <SearchForm />
       <MoviesCardList />
-      <Footer />
+      <Footer width={width} breakpointMobile={breakpointMobile} />
     </div>
   );
 }

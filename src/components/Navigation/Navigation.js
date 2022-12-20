@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navigation.css';
 
-export default function Navigation({ width, breakpoint, openMenu }) {
-  if (width > breakpoint) {
+export default function Navigation({ width, breakpointTable, openMenu }) {
+  if (width > breakpointTable) {
     return (
       <div className='navigation'>
         <Link to='/movies' className='navigation__item'>

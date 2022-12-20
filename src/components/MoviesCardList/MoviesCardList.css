@@ -41,3 +41,11 @@
     color: #a0a0a0;
   }
 }
+@media screen and (max-width: 768px) {
+  .movies-card-list {
+    padding: 40px 10px 30px 10px;
+  }
+  .movies-card-list__else {
+    width: 300px;
+  }
+}

@@ -1,3 +1,6 @@
 .login__submit {
   margin-top: 159px;
 }
+@media screen and (max-width: 768px) {
+  
+}

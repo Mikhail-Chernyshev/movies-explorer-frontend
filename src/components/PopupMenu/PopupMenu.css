@@ -18,7 +18,7 @@
 }
 .popup-menu__content {
   margin: 0 0 0 248px;
-  padding: 0;
+  padding: 22px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -26,19 +26,50 @@
   background-color: #ffffff;
   width: 520px;
   z-index: 12;
+  height: auto;
 }
 .popup-menu__close {
-  margin: 0;
+  margin: 22px 22px 105px auto;
   padding: 0;
   width: 22px;
   height: 22px;
+  background-image: url(../../images/popup-close.svg);
+  background-position: center;
   border: none;
+  background-color: #ffffff;
+}
+.popup-menu__nav-item {
+  margin: 0 0 28px 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+}
+.popup-menu__nav-item:first-child {
   border: 1px solid black;
-  background-image: url(../../images/close-popup.svg);
+}
+.popup-menu__nav-item:last-child {
+  margin-top: 593px;
+  margin-bottom: 90px;
+  margin: 593px auto 90px;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 5px 0 0 0;
 }
 @media screen and (max-width: 767px) {
   .popup-menu__content {
     max-width: 767px;
     margin: 0;
+  }
+  .popup-menu__close {
+    margin-bottom: 99px;
+  }
+  .popup-menu__nav-item {
+    margin-bottom: 24px;
+  }
+  .popup-menu__nav-item:last-child {
+    margin-top: 420px;
+    margin-bottom: 46px;
   }
 }

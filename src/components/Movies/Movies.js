@@ -5,13 +5,24 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movies.css';
 
-export default function Movies({ loggedIn, width, breakpoint, openMenu }) {
+export default function Movies({
+  loggedIn,
+  width,
+  breakpointTable,
+  openMenu,
+  breakpointMobile,
+}) {
   return (
     <section className='movies'>
-      <Header openMenu={openMenu} width={width} breakpoint={breakpoint} loggedIn={loggedIn} />
+      <Header
+        openMenu={openMenu}
+        width={width}
+        breakpointTable={breakpointTable}
+        loggedIn={loggedIn}
+      />
       <SearchForm />
-      <MoviesCardList width={width} breakpoint={breakpoint} />
-      <Footer />
+      <MoviesCardList width={width} breakpointTable={breakpointTable} />
+      <Footer width={width} breakpointMobile={breakpointMobile} />
     </section>
   );
 }

@@ -61,3 +61,24 @@
     width: 708px;
   }
 }
+@media screen and (max-width: 767px) {
+  .footer {
+    padding: 80px 14px 0 14px;
+    height: auto;
+  }
+  .footer__line {
+    width: 300px;
+    margin-left: -4px;
+    margin-bottom: 30px;
+  }
+  .footer__wrapper {
+    flex-direction: column;
+  }
+  .footer__company {
+    margin: 0 auto;
+    margin-bottom: 12px;
+  }
+  .footer__year {
+    margin: 18px auto 20px;
+  }
+}

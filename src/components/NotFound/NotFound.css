@@ -42,3 +42,25 @@
     margin-bottom: 222px;
   }
 }
+@media screen and (max-width: 768px) {
+  .not-found__error-code {
+    margin: 329px auto 10px;
+    font-size: 80px;
+    text-align: center;
+    width: auto;
+    line-height: 97px;
+    height: auto;
+  }
+  .not-found__error-text {
+    font-size: 12px;
+    line-height: 14px;
+    height: auto;
+    margin-bottom: 284px;
+  }
+  .not-found__back {
+    font-size: 12px;
+    line-height: 14px;
+    height: auto;
+    margin-bottom: 30px;
+  }
+}

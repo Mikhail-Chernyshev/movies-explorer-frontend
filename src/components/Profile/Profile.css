@@ -47,6 +47,7 @@
 }
 .profile__button_leave {
   color: #ff4062;
+  margin-bottom: 70px;
 }
 @media screen and (max-width: 1023px) {
   .profile__title {
@@ -60,5 +61,22 @@
   }
   .profile__button_leave {
     margin-bottom: 269px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .profile__title {
+    margin: 70px auto 63px;
+  }
+  .profile__box {
+    margin: 17px 30px 0px;
+  }
+  .profile__line {
+    width: 260px;
+  }
+  .profile__button_edit {
+    margin-top: 370px;
+  }
+  .profile__button_leave {
+    margin-bottom: 40px;
   }
 }
