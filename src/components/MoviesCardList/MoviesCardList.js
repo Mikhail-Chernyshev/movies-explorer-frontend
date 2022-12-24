@@ -3,10 +3,9 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 export default function MoviesCardList({ width, breakpointTable }) {
-
   if (width > breakpointTable) {
     return (
-      <section className='movies-card-list'>
+      <ul className='movies-card-list'>
         <MoviesCard />
         <MoviesCard />
         <MoviesCard />
@@ -19,7 +18,10 @@ export default function MoviesCardList({ width, breakpointTable }) {
         <MoviesCard />
         <MoviesCard />
         <MoviesCard />
-      </section>
+        <div className='movies-card-list__else'>
+          <button className='movies-card-list__else-button'>Else</button>
+        </div>
+      </ul>
     );
   }
   return (

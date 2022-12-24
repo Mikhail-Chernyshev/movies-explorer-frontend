@@ -11,6 +11,11 @@
   font-size: 18px;
   line-height: 20px;
 }
+.portfolio__items {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
 .portfolio__item {
   margin: 0 0 9px 0;
   padding: 0;
@@ -28,6 +33,10 @@
   font-weight: 400;
   font-size: 30px;
   line-height: 50px;
+  text-decoration: none;
+}
+.portfolio__subtitle:visited {
+  color: black;
 }
 .portfolio__icon {
   margin: 0;

@@ -18,7 +18,7 @@ export default function Main({
   breakpointMobile,
 }) {
   return (
-    <div className='main'>
+    <div className='page'>
       <Header
         openMenu={openMenu}
         width={width}
@@ -26,12 +26,14 @@ export default function Main({
         loggedIn={loggedIn}
       />
       {/* <Preloader/> */}
-      <Promo />
-      <NavTab />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
+      <div className='main'>
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </div>
       <Footer width={width} breakpointMobile={breakpointMobile} />
     </div>
   );

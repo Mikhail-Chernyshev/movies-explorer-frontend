@@ -13,16 +13,19 @@ export default function Movies({
   breakpointMobile,
 }) {
   return (
-    <section className='movies'>
+    <div className='movies'>
       <Header
         openMenu={openMenu}
         width={width}
         breakpointTable={breakpointTable}
         loggedIn={loggedIn}
       />
-      <SearchForm />
-      <MoviesCardList width={width} breakpointTable={breakpointTable} />
+      <div className='main'>
+        <SearchForm />
+        <MoviesCardList width={width} breakpointTable={breakpointTable} />
+      </div>
+
       <Footer width={width} breakpointMobile={breakpointMobile} />
-    </section>
+    </div>
   );
 }

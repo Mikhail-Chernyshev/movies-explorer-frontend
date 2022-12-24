@@ -20,8 +20,11 @@ export default function SavedMovies({
         breakpointTable={breakpointTable}
         loggedIn={loggedIn}
       />
-      <SearchForm />
-      <MoviesCardList />
+      <div className='main'>
+        <SearchForm />
+        <MoviesCardList />
+      </div>
+
       <Footer width={width} breakpointMobile={breakpointMobile} />
     </div>
   );

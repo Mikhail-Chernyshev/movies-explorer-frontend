@@ -5,7 +5,7 @@ import './Header.css';
 export default function Header({ loggedIn, width, breakpointTable, openMenu }) {
   return (
     <header className='header'>
-      <div className='header__logo'></div>
+      <a href='/' className='header__logo'></a>
       {!loggedIn ? (
         <Navigation openMenu={openMenu} width={width} breakpointTable={breakpointTable} />
       ) : (

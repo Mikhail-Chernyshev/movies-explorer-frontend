@@ -11,18 +11,24 @@ export default function Profile({ loggedIn, openMenu, width, breakpoint }) {
         openMenu={openMenu}
         loggedIn={loggedIn}
       />
-      <h2 className='profile__title'>Hi, Mikhail!</h2>
-      <div className='profile__box'>
-        <p className='profile__key-value'>Name</p>
-        <p className='profile__key-value'>Mikhail</p>
+      <div className='main'>
+        <section className='profile__wrapper'>
+          <h2 className='profile__title'>Hi, Mikhail!</h2>
+          <div className='profile__box'>
+            <p className='profile__key-value'>Name</p>
+            <p className='profile__key-value'>Mikhail</p>
+          </div>
+          <div className='footer__line profile__line'></div>
+          <div className='profile__box'>
+            <p className='profile__key-value'>E-mail</p>
+            <p className='profile__key-value'>12345@yandex.ru</p>
+          </div>
+          <button className='profile__button profile__button_edit'>Edit</button>
+          <button className='profile__button profile__button_leave'>
+            Leave
+          </button>
+        </section>
       </div>
-      <div className='footer__line profile__line'></div>
-      <div className='profile__box'>
-        <p className='profile__key-value'>E-mail</p>
-        <p className='profile__key-value'>12345@yandex.ru</p>
-      </div>
-      <button className='profile__button profile__button_edit'>Edit</button>
-      <button className='profile__button profile__button_leave'>Leave</button>
     </div>
   );
 }
