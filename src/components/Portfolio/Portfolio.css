@@ -1,5 +1,5 @@
 .portfolio {
-  margin: 0;
+  margin: 101px 0 0 0;
   padding: 0 70px 0 70px;
   height: auto;
 }
@@ -34,6 +34,7 @@
   font-size: 30px;
   line-height: 50px;
   text-decoration: none;
+  color: black;
 }
 .portfolio__subtitle:visited {
   color: black;
@@ -48,13 +49,14 @@
 .portfolio__line {
   margin: 0 0 20px 0;
   padding: 0;
-  width: 1140px;
+  max-width: 1140px;
   height: 0px;
   border-bottom: 1px solid #e8e8e8;
 }
 @media screen and (max-width: 1023px) {
   .portfolio {
     padding: 0 50px;
+    margin: 91px 0 0 0;
   }
   .portfolio__line {
     width: auto;
@@ -65,6 +67,8 @@
 }
 @media screen and (max-width: 768px) {
   .portfolio {
+    margin: 70px 0 0 0;
+
     padding: 0px 14px;
   }
   .portfolio__title {

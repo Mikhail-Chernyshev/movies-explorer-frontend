@@ -1,4 +1,4 @@
-@media screen and (max-width: 1023px) {
+/* @media screen and (max-width: 1023px) { */
   .popup-menu {
     display: flex;
     margin: 0 auto;
@@ -56,9 +56,10 @@
     margin: 573px auto 90px;
     font-size: 14px;
     line-height: 16px;
+    height: 16px;
     padding: 8px 0 8px 0;
   }
-}
+/* } */
 @media screen and (max-width: 767px) {
   .popup-menu__content {
     max-width: 767px;

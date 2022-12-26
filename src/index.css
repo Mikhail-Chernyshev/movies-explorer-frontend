@@ -2,10 +2,12 @@
 @import url(./vendor/fonts/fonts.css);
 
 body {
-  max-width: 1280px;
-  margin: auto auto;
+  /* max-width: 1280px; */
+  margin: 0 auto;
   display: flex;
+  /* position: relative; */
 }
 html {
   display: flex;
+  position: relative;
 }

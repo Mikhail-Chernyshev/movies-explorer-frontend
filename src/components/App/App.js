@@ -21,8 +21,8 @@ function App() {
   const handleCloseMenu = () => {
     setisOpenMenu(false);
   };
-  const breakpointTable = 770;
-  const breakpointMobile = 320;
+  const breakpointTable = 1023;
+  const breakpointMobile = 768;
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
     // subscribe to window resize event "onComponentDidMount"

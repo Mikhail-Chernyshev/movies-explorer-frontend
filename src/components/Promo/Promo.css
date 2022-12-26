@@ -6,9 +6,10 @@
   border-radius: 10px 10px 0 0;
 }
 .promo__title {
-  padding: 160px 235px 100px 235px;
-  margin: 0;
-  width: 730px;
+  padding: 160px 0 100px 0;
+  margin: 0 auto;
+  max-width: 730px;
+  /* min-height: 150px; */
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
@@ -21,17 +22,17 @@
   }
   .promo__title {
     padding: 350px 24px 380px 24px;
-    width: 680px;
+    max-width: 680px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .promo {
-    margin: 14px 14px 0px 14px;
+    margin: 0;
   }
   .promo__title {
     padding: 220px 0px 171px;
-    width: 292px;
+    max-width: 292px;
     font-size: 29px;
     line-height: 37px;
   }

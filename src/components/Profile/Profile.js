@@ -4,7 +4,7 @@ import './Profile.css';
 
 export default function Profile({ loggedIn, openMenu, width, breakpoint }) {
   return (
-    <div className='profile'>
+    <div className='page__wrapper'>
       <Header
         width={width}
         breakpoint={breakpoint}

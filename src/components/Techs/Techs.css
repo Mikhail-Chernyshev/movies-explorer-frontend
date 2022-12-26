@@ -1,13 +1,15 @@
 .techs {
-  margin: 0;
-  padding: 100px 70px 0 70px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 100px 70px 100px 70px;
   height: auto;
   background-color: #f5f5f5;
 }
 .techs__title {
   padding: 0;
-  margin: 0px 540px 23px 0px;
-  width: 600px;
+  margin: 0px auto 23px 0px;
+  max-width: 600px;
   font-weight: 400;
   font-size: 22px;
   line-height: 26.63px;
@@ -15,14 +17,14 @@
 .techs__line {
   margin: 0;
   padding: 0;
-  width: 1140px;
+  max-width: 1140px;
   height: 0px;
   border-bottom: 1px solid black;
 }
 .techs__subtitle {
   margin: 90px auto 26px;
   padding: 0;
-  width: 600px;
+  max-width: 600px;
   height: 58px;
   text-align: center;
   font-weight: 400;
@@ -32,7 +34,7 @@
 .techs__description {
   margin: 0 auto 100px;
   padding: 0;
-  width: 450px;
+  max-width: 450px;
   height: 40px;
   text-align: center;
   font-weight: 400;
@@ -40,11 +42,12 @@
   line-height: 20px;
 }
 .techs__list {
-  margin: 0 225px 0 225px;
+  margin: 0 auto;
   padding: 0;
   display: flex;
   list-style-type: none;
-  align-self: center;
+  align-items: center;
+  /* justify-content: space-between; */
 }
 .techs__tech-item {
   margin: 0 10px 0 0;
@@ -63,11 +66,11 @@
 }
 @media screen and (max-width: 1023px) {
   .techs {
-    padding: 90px 50px 0 50px;
+    padding: 90px 50px 90px 50px;
     height: auto;
   }
   .techs__line {
-    width: 668px;
+    max-width: 668px;
   }
   .techs__subtitle {
     margin: 80px auto 22px;

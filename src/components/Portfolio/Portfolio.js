@@ -8,6 +8,7 @@ export default function Portfolio() {
       <ul className='portfolio__items'>
         <li className='portfolio__item'>
           <a
+            target='blank'
             href='https://mikhail-chernyshev.github.io/how-to-learn/'
             className='portfolio__subtitle'
           >
@@ -19,6 +20,7 @@ export default function Portfolio() {
 
         <li className='portfolio__item'>
           <a
+            target='blank'
             href='https://mikhail-chernyshev.github.io/russian-travel/'
             className='portfolio__subtitle'
           >
@@ -29,6 +31,7 @@ export default function Portfolio() {
         <div className='portfolio__line'></div>
         <li className='portfolio__item'>
           <a
+            target='blank'
             href='https://mikhail-chernyshev.github.io/'
             className='portfolio__subtitle'
           >

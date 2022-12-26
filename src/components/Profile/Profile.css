@@ -1,5 +1,5 @@
 .profile__wrapper {
-  margin: 0;
+  margin: 0 435px;
   padding: 0;
   height: auto;
   display: flex;
@@ -14,7 +14,7 @@
 }
 .profile__box {
   padding: 0;
-  margin: 17px 435px 0;
+  margin: 17px 0 0;
   display: flex;
   justify-content: space-between;
   font-weight: 400;
@@ -50,11 +50,14 @@
   margin-bottom: 70px;
 }
 @media screen and (max-width: 1023px) {
+  .profile__wrapper{
+    /* margin: 0; */
+  }
   .profile__title {
     margin: 236px auto 76px;
   }
   .profile__box {
-    margin: 17px 180px 0;
+    margin: 17px 0px 0;
   }
   .profile__button_edit {
     margin-top: 200px;
@@ -68,7 +71,7 @@
     margin: 70px auto 63px;
   }
   .profile__box {
-    margin: 17px 30px 0px;
+    margin: 17px 0 0px;
   }
   .profile__line {
     width: 260px;
