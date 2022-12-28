@@ -58,7 +58,7 @@
 .about-project__scale-wrapper:last-child {
   width: 80%;
 }
-.about-project__backend-color {
+.about-project__backend {
   margin: 0;
   padding: 9px 0 0 0;
   height: 27px;
@@ -89,7 +89,7 @@
   font-size: 14px;
   line-height: 17px;
 }
-.about-project__frontend-color {
+.about-project__frontend {
   margin: 0;
   padding: 9px 0 0 0;
   height: 27px;

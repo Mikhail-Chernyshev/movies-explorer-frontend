@@ -6,19 +6,20 @@
   flex-direction: column;
 }
 .search__wrapper {
-  margin: 0 0 83px 0;
+  margin: 0 auto 83px;
   padding: 0;
+  width: 1280px;
   display: flex;
 }
 .search__wrapper-2 {
-  margin: 0;
+  margin: 0 70px 0 0;
   padding: 0;
   display: flex;
 }
 .search__form {
   margin: 80px 0 0 70px;
   padding: 3px 0;
-  width: 932px;
+  width: 972px;
   height: 46px;
   border: 1.5px solid #aaaaaa;
   border-radius: 50px;
@@ -28,7 +29,7 @@
   margin: 0 0 0 20px;
   padding: 0;
   color: #aaaaaa;
-  width: 872px;
+  width: 93.5%;
   height: 46px;
   border: none;
   font-weight: 400;
@@ -133,7 +134,7 @@
 .search__line {
   margin: 0 70px;
   padding: 0;
-  width: 1140px;
+  max-width: 1140px;
   height: 0px;
   border-bottom: 1px solid #cccccc;
 }

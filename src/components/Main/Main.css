@@ -1,6 +1,7 @@
 .main {
   margin: 0 auto;
   padding: 0;
+  position: relative;
 }
 
 @media screen and (max-width: 1023px) {
@@ -9,6 +10,6 @@
 }
 @media screen and (max-width: 767px) {
   .main {
-    width: 282px;
+    width: 320px;
   }
 }

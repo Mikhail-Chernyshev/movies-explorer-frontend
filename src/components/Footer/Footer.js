@@ -9,7 +9,7 @@ export default function Footer({ breakpointMobile, width }) {
         <div className='footer__line'></div>
         <div className='footer__wrapper'>
           <p className='footer__year'>© 2022</p>
-          <div className='footer__companys'>
+          <div className='footer__company-list'>
             <a href='d' className='footer__company'>
               Yandex.Practicum
             </a>

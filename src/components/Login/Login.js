@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function Login() {
   return (
     <div className='register'>
-      <div className='header__logo register__logo'></div>
+      <div className='register__logo '></div>
       <h2 className='register__title'>Nice to see you!</h2>
       <form className='register__form' noValidate>
         <div className='register__container'>
@@ -23,7 +23,7 @@ export default function Login() {
             placeholder='Email'
           />
           {/* {errors.email && ( */}
-          {/* <span className='register__input-error_active'> */}
+          {/* <span className='register__input-error'> */}
           {/* {errors.email} */}
           {/* </span> */}
           {/* )} */}
@@ -44,7 +44,7 @@ export default function Login() {
             placeholder='Email'
           />
           {/* {errors.email && ( */}
-          {/* <span className='register__input-error_active'> */}
+          {/* <span className='register__input-error'> */}
           {/* {errors.email} */}
           {/* </span> */}
           {/* )} */}
@@ -52,7 +52,7 @@ export default function Login() {
 
         <button
           type='submit'
-          className='register__submit login__submit'
+          className='register__submit'
           //   onClick={handleSubmit}
           //   disabled={!isFormValid}
         >

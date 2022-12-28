@@ -11,24 +11,26 @@ export default function PopupMenu({ closeMenu, isOpen }) {
           type='button'
           onClick={closeMenu}
         ></button>
-        <Link to='/' className='navigation__item popup-menu__nav-item'>
-          Main
-        </Link>
-        <Link to='/movies' className='navigation__item popup-menu__nav-item'>
-          Movies
-        </Link>
-        <Link
-          to='/saved-movies'
-          className='navigation__item popup-menu__nav-item'
-        >
-          Saved movies
-        </Link>
-        <Link
-          to='/profile'
-          className='navigation__account popup-menu__nav-item'
-        >
-          Account
-        </Link>
+        <ul>
+          <Link to='/' className='popup-menu__nav-item'>
+            Main
+          </Link>
+          <Link to='/movies' className='popup-menu__nav-item'>
+            Movies
+          </Link>
+          <Link
+            to='/saved-movies'
+            className=' popup-menu__nav-item'
+          >
+            Saved movies
+          </Link>
+          <Link
+            to='/profile'
+            className=' popup-menu__nav-item'
+          >
+            Account
+          </Link>
+        </ul>
       </div>
     </div>
   );

@@ -5,8 +5,7 @@ export default function AboutProject() {
   return (
     <section className='about-project'>
       <h2 className='about-project__title'>About project</h2>
-      <div className='about-project__line'>
-      </div>
+      <div className='about-project__line'></div>
       <div className='about-project__wrapper'>
         <div className='about-project__info'>
           <h3 className='about-project__subtitle'>
@@ -29,12 +28,12 @@ export default function AboutProject() {
       </div>
       <div className='about-project__scale'>
         <div className='about-project__scale-wrapper'>
-            <div className='about-project__backend-color'>1 week</div>
-            <p className='about-project__backend-text'>Back-end</p>
+          <div className='about-project__backend'>1 week</div>
+          <p className='about-project__backend-text'>Back-end</p>
         </div>
         <div className='about-project__scale-wrapper'>
-            <div className='about-project__frontend-color'>4 week</div>
-            <p className='about-project__frontend-text'>Front-end</p>
+          <div className='about-project__frontend'>4 week</div>
+          <p className='about-project__frontend-text'>Front-end</p>
         </div>
       </div>
     </section>

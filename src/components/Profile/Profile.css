@@ -1,4 +1,4 @@
-.profile__wrapper {
+.profile {
   margin: 0 435px;
   padding: 0;
   height: auto;
@@ -50,8 +50,8 @@
   margin-bottom: 70px;
 }
 @media screen and (max-width: 1023px) {
-  .profile__wrapper{
-    /* margin: 0; */
+  .profile__wrapper {
+    margin: 0 179px;
   }
   .profile__title {
     margin: 236px auto 76px;
@@ -81,5 +81,8 @@
   }
   .profile__button_leave {
     margin-bottom: 40px;
+  }
+  .profile__wrapper {
+    margin: 0 30px;
   }
 }

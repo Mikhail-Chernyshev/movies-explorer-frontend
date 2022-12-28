@@ -1,13 +1,14 @@
 .movies-card-list {
-  margin: 0;
+  margin: 0 auto;
   padding: 70px 70px 30px 70px;
-  height: 1174px;
+  /* height: 1174px; */
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
   list-style-type: none;
-  /* position: relative; */
+  position: relative;
 }
+
 .movies-card-list__else {
   /* background-color: white; */
   display: flex;
@@ -45,7 +46,7 @@
   .movies-card-list__else {
     /* background-color: white; */
     display: flex;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     width: 768px;
     /* height: 166px; */

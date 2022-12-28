@@ -13,7 +13,7 @@ export default function Movies({
   breakpointMobile,
 }) {
   return (
-    <div className='page'>
+    <div className='page__wrapper'>
       <Header
         openMenu={openMenu}
         width={width}

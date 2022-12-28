@@ -21,7 +21,7 @@ export default function SearchForm() {
               className='search__checkbox'
               type='checkbox'
               //   onChange={handleCheckbox}
-              //   checked
+                checked
             />
             <span className='search__slider'></span>
           </label>

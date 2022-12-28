@@ -5,6 +5,10 @@
 }
 .register__logo {
   margin: 0 0 40px 0;
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  background-image: url(../../images/logo-diploma.svg);
 }
 .register__title {
   margin: 0 0 40px 0;

@@ -18,7 +18,7 @@ export default function AboutMe() {
             Контур». После того, как прошёл курс по веб-разработке, начал
             заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
-          <a href='1' className='about-me__git-link'>
+          <a href='1' className='about-me__link'>
             Github
           </a>
         </div>

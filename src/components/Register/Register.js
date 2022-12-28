@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function Register({ loggedIn }) {
   return (
     <div className='register'>
-      <div className='header__logo register__logo'></div>
+      <div className='register__logo'></div>
       <h2 className='register__title'>Wellcome, user.</h2>
       <form className='register__form' noValidate>
         <div className='register__container'>
@@ -23,7 +23,7 @@ export default function Register({ loggedIn }) {
             placeholder='Name'
           />
           {/* {errors.email && ( */}
-          {/* <span className='register__input-error_active'> */}
+          {/* <span className='register__input-error'> */}
           {/* {errors.email} */}
           {/* </span> */}
           {/* )} */}
@@ -44,7 +44,7 @@ export default function Register({ loggedIn }) {
             placeholder='Email'
           />
           {/* {errors.email && ( */}
-          {/* <span className='register__input-error_active'> */}
+          {/* <span className='register__input-error'> */}
           {/* {errors.email} */}
           {/* </span> */}
           {/* )} */}
@@ -65,7 +65,7 @@ export default function Register({ loggedIn }) {
             placeholder='Password'
           />
           {/* {errors.email && ( */}
-          {/* <span className='register__input-error_active'> */}
+          {/* <span className='register__input-error'> */}
           {/* {errors.email} */}
           {/* </span> */}
           {/* )} */}
@@ -82,7 +82,7 @@ export default function Register({ loggedIn }) {
         </button>
       </form>
       <p className='register__answer'>
-        Already have account? 
+        Already have account?
         <Link to='/signin' className='register__link'>
           Login.
         </Link>

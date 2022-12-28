@@ -3,12 +3,11 @@ import './NavTab.css';
 
 export default function NavTab() {
   return (
-    <div className='navtab'>
-      <ul className='navtab__nav'>
-        {' '}
-        <li className='navtab__item'>Project</li>
-        <li className='navtab__item'>Techs</li>
-        <li className='navtab__item'>Student</li>
+    <div className='nav'>
+      <ul className='nav__nav'>
+        <li className='nav__item'>Project</li>
+        <li className='nav__item'>Techs</li>
+        <li className='nav__item'>Student</li>
       </ul>
     </div>
   );
