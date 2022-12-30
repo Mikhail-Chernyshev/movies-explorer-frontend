@@ -1,6 +1,7 @@
 .register {
-  margin: 0;
-  padding: 70px 442px;
+  margin: 0 auto;
+  padding: 70px 0;
+  width: 396px;
   height: auto;
 }
 .register__logo {

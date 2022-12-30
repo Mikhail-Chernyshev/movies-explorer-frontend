@@ -11,6 +11,12 @@ export default function Movies({
   breakpointTable,
   openMenu,
   breakpointMobile,
+  getAllMovies,
+  films,
+  // setSearch,
+  findMovies,
+  searchFilms,
+  addToUserList,
 }) {
   return (
     <div className='page__wrapper'>
@@ -21,8 +27,18 @@ export default function Movies({
         loggedIn={loggedIn}
       />
       <div className='main'>
-        <SearchForm />
-        <MoviesCardList width={width} breakpointTable={breakpointTable} />
+        <SearchForm
+          findMovies={findMovies}
+          // setSearch={setSearch}
+          getAllMovies={getAllMovies}
+        />
+        <MoviesCardList
+          addToUserList={addToUserList}
+          searchFilms={searchFilms}
+          films={films}
+          width={width}
+          breakpointTable={breakpointTable}
+        />
       </div>
 
       <Footer width={width} breakpointMobile={breakpointMobile} />

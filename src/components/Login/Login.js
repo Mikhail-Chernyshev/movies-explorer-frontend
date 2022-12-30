@@ -1,8 +1,17 @@
 import React from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
+import useForm from '../../hooks/useForm';
 
-export default function Login() {
+export default function Login({ onLogin }) {
+  const { values, errors, handleChange, isFormValid, resetForm } = useForm();
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onLogin({
+      email: values.email,
+      password: values.password,
+    });
+  };
   return (
     <div className='register'>
       <div className='register__logo '></div>
@@ -18,15 +27,13 @@ export default function Login() {
             name='email'
             className='register__input'
             required
-            // value={values.email || ''}
-            // onChange={handleChange}
+            value={values.email || ''}
+            onChange={handleChange}
             placeholder='Email'
           />
-          {/* {errors.email && ( */}
-          {/* <span className='register__input-error'> */}
-          {/* {errors.email} */}
-          {/* </span> */}
-          {/* )} */}
+          {errors.email && (
+            <span className='register__input-error'>{errors.email}</span>
+          )}
         </div>
         <div className='register__container'>
           <label className='register__label'>Password</label>
@@ -39,30 +46,28 @@ export default function Login() {
             name='password'
             className='register__input'
             required
-            // value={values.email || ''}
-            // onChange={handleChange}
-            placeholder='Email'
+            value={values.password || ''}
+            onChange={handleChange}
+            placeholder='Password'
           />
-          {/* {errors.email && ( */}
-          {/* <span className='register__input-error'> */}
-          {/* {errors.email} */}
-          {/* </span> */}
-          {/* )} */}
+          {errors.email && (
+            <span className='register__input-error'>{errors.email}</span>
+          )}
         </div>
 
         <button
           type='submit'
           className='register__submit'
-          //   onClick={handleSubmit}
-          //   disabled={!isFormValid}
+          onClick={handleSubmit}
+          disabled={!isFormValid}
         >
-          Sign up
+          Sign in
         </button>
       </form>
       <p className='register__answer'>
-        Already have account?
-        <Link to='/signin' className='register__link'>
-          Login.
+        Don't have account?
+        <Link to='/signup' className='register__link'>
+          Sign up.
         </Link>
       </p>
     </div>

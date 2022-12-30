@@ -1,8 +1,21 @@
 import React from 'react';
 import './Register.css';
 import { Link } from 'react-router-dom';
+import useForm from '../../hooks/useForm';
 
-export default function Register({ loggedIn }) {
+export default function Register({ loggedIn, onRegister }) {
+  const { values, errors, handleChange, isFormValid, resetForm } = useForm();
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    console.log(evt);
+    onRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
+  };
+
   return (
     <div className='register'>
       <div className='register__logo'></div>
@@ -18,36 +31,32 @@ export default function Register({ loggedIn }) {
             name='name'
             className='register__input'
             required
-            // value={values.email || ''}
-            // onChange={handleChange}
             placeholder='Name'
+            value={values.name || ''}
+            onChange={handleChange}
           />
-          {/* {errors.email && ( */}
-          {/* <span className='register__input-error'> */}
-          {/* {errors.email} */}
-          {/* </span> */}
-          {/* )} */}
+          {errors.email && (
+            <span className='register__input-error'>{errors.email}</span>
+          )}
         </div>
         <div className='register__container'>
           <label className='register__label'>Email</label>
 
           <input
-            type='text'
             id='email-input'
             minLength='2 '
             maxLength='400'
             name='email'
             className='register__input'
             required
-            // value={values.email || ''}
-            // onChange={handleChange}
+            value={values.email || ''}
+            onChange={handleChange}
             placeholder='Email'
+            type='text'
           />
-          {/* {errors.email && ( */}
-          {/* <span className='register__input-error'> */}
-          {/* {errors.email} */}
-          {/* </span> */}
-          {/* )} */}
+          {errors.email && (
+            <span className='register__input-error'>{errors.email}</span>
+          )}
         </div>
         <div className='register__container'>
           <label className='register__label'>Password</label>
@@ -60,23 +69,21 @@ export default function Register({ loggedIn }) {
             name='password'
             className='register__input'
             required
-            // value={values.email || ''}
-            // onChange={handleChange}
+            value={values.password || ''}
+            onChange={handleChange}
             placeholder='Password'
           />
-          {/* {errors.email && ( */}
-          {/* <span className='register__input-error'> */}
-          {/* {errors.email} */}
-          {/* </span> */}
-          {/* )} */}
+          {errors.email && (
+            <span className='register__input-error'>{errors.email}</span>
+          )}
           <p className='register__label register__error'>Some error</p>
         </div>
 
         <button
           type='submit'
           className='register__submit'
-          //   onClick={handleSubmit}
-          //   disabled={!isFormValid}
+          onClick={handleSubmit}
+          disabled={!isFormValid}
         >
           Sign up
         </button>

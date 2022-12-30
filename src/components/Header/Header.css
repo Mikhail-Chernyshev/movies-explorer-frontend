@@ -1,10 +1,12 @@
 .header {
   height: 74px;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   display: flex;
+  max-width: 1140px;
   justify-content: space-between;
   align-items: center;
+  /* width: 1023px; */
 }
 .header__logo {
   margin: 0 0 0 70px;
@@ -47,6 +49,9 @@
   .header__wrapper {
     margin-right: 30px;
   }
+  .header {
+    /* width: 768px; */
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -57,6 +62,6 @@
     margin-right: 14px;
   }
   .header {
-    /* max-width: 320px; */
+    /* width: 320px; */
   }
 }

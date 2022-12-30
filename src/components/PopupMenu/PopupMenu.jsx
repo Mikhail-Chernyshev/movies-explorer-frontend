@@ -11,7 +11,7 @@ export default function PopupMenu({ closeMenu, isOpen }) {
           type='button'
           onClick={closeMenu}
         ></button>
-        <ul>
+        <ul className='popup-menu__nav'>
           <Link to='/' className='popup-menu__nav-item'>
             Main
           </Link>

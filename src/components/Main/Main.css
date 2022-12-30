@@ -1,7 +1,5 @@
 .main {
-  margin: 0 auto;
-  padding: 0;
-  position: relative;
+  display: block;
 }
 
 @media screen and (max-width: 1023px) {
