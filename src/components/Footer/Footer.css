@@ -1,0 +1,84 @@
+.footer {
+  margin: 0 auto;
+  padding: 79px 0 0 0;
+  height: 93px;
+}
+.footer__title {
+  margin: 0 auto 20px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #a0a0a0;
+}
+.footer__line {
+  margin: 0 0 20px 0;
+  padding: 0;
+  max-width: 1140px;
+  height: 0px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.footer__wrapper {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__year {
+  margin: 0 0 0 70px;
+  padding: 0;
+  width: 48px;
+  height: 16px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+.footer__company-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.footer__company {
+  margin: 0;
+  padding: 0;
+  height: 16px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  margin-right: 20px;
+  text-decoration: none;
+  color: #000000;
+}
+.footer__company:last-child {
+  margin-right: 70px;
+}
+@media screen and (max-width: 1023px) {
+  .footer {
+    padding: 80px 30px 0 30px;
+  }
+  .footer__line {
+    /* width: 708px; */
+  }
+}
+@media screen and (max-width: 767px) {
+  .footer {
+    padding: 80px 14px 0 14px;
+    height: auto;
+  }
+  .footer__line {
+    width: 300px;
+    margin-left: -4px;
+    margin-bottom: 30px;
+  }
+  .footer__wrapper {
+    flex-direction: column;
+  }
+  .footer__company {
+    margin: 0 auto;
+    margin-bottom: 12px;
+  }
+  .footer__year {
+    margin: 18px auto 20px;
+  }
+}
