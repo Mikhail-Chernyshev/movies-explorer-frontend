@@ -1,0 +1,123 @@
+.techs {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 100px 70px 100px 70px;
+  height: auto;
+  background-color: #f5f5f5;
+}
+.techs__title {
+  padding: 0;
+  margin: 0px auto 23px 0px;
+  max-width: 600px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 26.63px;
+}
+.techs__line {
+  margin: 0;
+  padding: 0;
+  max-width: 1140px;
+  height: 0px;
+  border-bottom: 1px solid black;
+}
+.techs__subtitle {
+  margin: 90px auto 26px;
+  padding: 0;
+  max-width: 600px;
+  height: 58px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+}
+.techs__description {
+  margin: 0 auto 100px;
+  padding: 0;
+  max-width: 450px;
+  height: 40px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+.techs__list {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+.techs__tech-item {
+  margin: 0 10px 0 0;
+  padding: 23px 0 0 0;
+  width: 90px;
+  height: 37px;
+  background-color: #e8e8e8;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-align: center;
+  border-radius: 10px;
+}
+.techs__tech-item:last-child {
+  margin-right: 0;
+}
+@media screen and (max-width: 1023px) {
+  .techs {
+    padding: 90px 50px 90px 50px;
+    height: auto;
+  }
+  .techs__line {
+    max-width: 668px;
+  }
+  .techs__subtitle {
+    margin: 80px auto 22px;
+  }
+  .techs__description {
+    margin-bottom: 83px;
+  }
+  .techs__tech-item {
+    width: 84px;
+    height: 34px;
+    padding: 20px 0 0 0;
+  }
+  .techs__list {
+    margin: 0 60px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .techs {
+    padding: 70px 18px;
+    background-color: white;
+  }
+  .techs__title {
+    margin: 0 0 28px 0;
+    width: auto;
+  }
+  .techs__line {
+    width: auto;
+  }
+  .techs__subtitle {
+    width: auto;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+  }
+  .techs__description {
+    height: 32px;
+    width: auto;
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+  .techs__list {
+    flex-wrap: wrap;
+    margin: 0 43px 0 53px;
+  }
+  .techs__tech-item {
+    margin-top: 10px;
+  }
+}

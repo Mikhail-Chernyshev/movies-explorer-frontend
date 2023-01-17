@@ -1,0 +1,44 @@
+.navigation {
+  margin: 0 70px 0 0;
+  padding: 0;
+  display: flex;
+}
+.navigation__item {
+  padding: 8px 0 0 0;
+  margin: 0 20px 0 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #000000;
+}
+.navigation__account {
+  padding: 0;
+  margin: 0 0 0 30px;
+  font-size: 14px;
+  line-height: 32px;
+  width: 100px;
+  height: 32px;
+  border-radius: 20px;
+  background-color: #f8f8f8;
+  text-align: center;
+  text-decoration: none;
+  color: #000000;
+}
+.navigation__burger {
+  margin: 0;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  background-image: url(../../images/burdeg-icon.svg);
+}
+@media screen and (max-width: 1023px) {
+  .navigation {
+    margin-right: 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .navigation {
+    margin-right: 14px;
+  }
+}
