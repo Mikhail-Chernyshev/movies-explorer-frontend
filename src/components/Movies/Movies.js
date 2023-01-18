@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movies.css';
+import Preloader from '../Preloader/Preloader';
 
 export default function Movies({
   loggedIn,
@@ -13,10 +14,16 @@ export default function Movies({
   breakpointMobile,
   getAllMovies,
   films,
-  // setSearch,
+  setSearch,
   findMovies,
   searchFilms,
   addToUserList,
+  activeChooseShort,
+  isChooseShort,
+  checkedOrNotCheched,
+  storageFilms,
+  currentPath,
+  isLoading,
 }) {
   return (
     <div className='page__wrapper'>
@@ -27,12 +34,19 @@ export default function Movies({
         loggedIn={loggedIn}
       />
       <div className='main'>
+        {isLoading ? <Preloader /> : ''}
+
         <SearchForm
+          isChooseShort={isChooseShort}
+          checkedOrNotCheched={checkedOrNotCheched}
+          activeChooseShort={activeChooseShort}
           findMovies={findMovies}
-          // setSearch={setSearch}
+          setSearch={setSearch}
           getAllMovies={getAllMovies}
         />
         <MoviesCardList
+          currentPath={currentPath}
+          storageFilms={storageFilms}
           addToUserList={addToUserList}
           searchFilms={searchFilms}
           films={films}

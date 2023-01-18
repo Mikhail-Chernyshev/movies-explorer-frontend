@@ -37,3 +37,35 @@ export function login(data) {
     return Promise.reject(res.status);
   });
 }
+export function getUserInfo(token) {
+  return fetch(`${MAIN_API}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  });
+}
+export function editUserInfo(data) {
+  return fetch(`${MAIN_API}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${data.token}`,
+    },
+    body: JSON.stringify({
+      name: data.name,
+      email: data.email,
+    }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  });
+}

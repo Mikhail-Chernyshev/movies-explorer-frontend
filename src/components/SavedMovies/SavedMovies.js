@@ -11,6 +11,12 @@ export default function SavedMovies({
   breakpointTable,
   openMenu,
   breakpointMobile,
+  movies,
+  currentPath,
+  checkedOrNotCheched,
+  isChooseShort,
+  activeChooseShort,
+  findMovies
 }) {
   return (
     <div className='page__wrapper'>
@@ -21,8 +27,20 @@ export default function SavedMovies({
         loggedIn={loggedIn}
       />
       <div className='main'>
-        <SearchForm />
-        <MoviesCardList />
+        <SearchForm
+          isChooseShort={isChooseShort}
+          checkedOrNotCheched={checkedOrNotCheched}
+          activeChooseShort={activeChooseShort}
+          findMovies={findMovies}
+          // setSearch={setSearch}
+          // getAllMovies={getAllMovies}
+        />
+        <MoviesCardList
+          currentPath={currentPath}
+          storageFilms={movies}
+          width={width}
+          breakpointTable={breakpointTable}
+        />
       </div>
 
       <Footer width={width} breakpointMobile={breakpointMobile} />

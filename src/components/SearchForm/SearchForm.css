@@ -6,14 +6,18 @@
   flex-direction: column;
 }
 .search__wrapper {
-  margin: 0 auto 83px;
+  margin: 0 70px 83px auto;
   padding: 0;
   width: 100%;
   display: flex;
+  flex-direction: column;
 }
 .search__wrapper-2 {
   margin: 0 70px 0 0;
   padding: 0;
+  display: flex;
+}
+.search__wrapper-3 {
   display: flex;
 }
 .search__form {
@@ -24,6 +28,8 @@
   border: 1.5px solid #aaaaaa;
   border-radius: 50px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .search__input {
   margin: 0 0 0 20px;
@@ -35,6 +41,9 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
+}
+.search__input-error {
+  margin: 20px auto 0;
 }
 .search__submit {
   position: absolute;

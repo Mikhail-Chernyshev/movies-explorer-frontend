@@ -1,12 +1,24 @@
 import React from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 
 export default function Login({ onLogin }) {
-  const { values, errors, handleChange, isFormValid, resetForm } = useForm();
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    setValues,
+    resetForm,
+    setIsValid,
+    setErrors,
+  } = useForm();
+  const navigate = useNavigate();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    // navigate('/movies');
     onLogin({
       email: values.email,
       password: values.password,
@@ -59,7 +71,7 @@ export default function Login({ onLogin }) {
           type='submit'
           className='register__submit'
           onClick={handleSubmit}
-          disabled={!isFormValid}
+          disabled={!isValid}
         >
           Sign in
         </button>

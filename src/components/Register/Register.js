@@ -4,8 +4,16 @@ import { Link } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 
 export default function Register({ loggedIn, onRegister }) {
-  const { values, errors, handleChange, isFormValid, resetForm } = useForm();
-
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    setValues,
+    resetForm,
+    setIsValid,
+    setErrors,
+  } = useForm();
   const handleSubmit = (evt) => {
     evt.preventDefault();
     console.log(evt);
@@ -83,7 +91,7 @@ export default function Register({ loggedIn, onRegister }) {
           type='submit'
           className='register__submit'
           onClick={handleSubmit}
-          disabled={!isFormValid}
+          disabled={!isValid}
         >
           Sign up
         </button>
