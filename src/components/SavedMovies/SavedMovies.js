@@ -16,7 +16,7 @@ export default function SavedMovies({
   checkedOrNotCheched,
   isChooseShort,
   activeChooseShort,
-  findMovies
+  findMovies,
 }) {
   return (
     <div className='page__wrapper'>
@@ -28,16 +28,19 @@ export default function SavedMovies({
       />
       <div className='main'>
         <SearchForm
+          currentPath={currentPath}
           isChooseShort={isChooseShort}
           checkedOrNotCheched={checkedOrNotCheched}
           activeChooseShort={activeChooseShort}
           findMovies={findMovies}
+          savedMovies={movies}
+
           // setSearch={setSearch}
           // getAllMovies={getAllMovies}
         />
         <MoviesCardList
           currentPath={currentPath}
-          storageFilms={movies}
+          savedFilms={movies}
           width={width}
           breakpointTable={breakpointTable}
         />

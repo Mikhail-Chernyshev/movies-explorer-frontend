@@ -7,14 +7,20 @@ export default function SearchForm({
   activeChooseShort,
   checkedOrNotCheched,
   isChooseShort,
+  handleSearch,
+  currentPath,
 }) {
-  const checked = localStorage.chooseShort
-    ? JSON.parse(localStorage.chooseShort)
-    : '';
+  // const checkbox =
+  //   currentPath === '/movies' && localStorage.chooseShort !== 'undefined'
+  //     ? JSON.parse(localStorage.chooseShort)
+  //     : false;
+
+  // const checked = localStorage.chooseShort
+  //   ? JSON.parse(localStorage.chooseShort)
+  //   : '';
   const { values, handleChange, errors, setValues, setErrors } = useForm();
   function handleCheckbox() {
     activeChooseShort();
-    findMovies(localStorage.name);
   }
   React.useEffect(() => {
     setValues({ name: localStorage.getItem('name') });
@@ -22,13 +28,12 @@ export default function SearchForm({
 
   function onGetFilms(evt) {
     evt.preventDefault();
+
     // setSearch(evt.target.value);
     localStorage.setItem('name', values.name);
     findMovies(values.name);
   }
-  // function onChange(e) {
-  //   setSearch(e.target.value);
-  // }
+
   return (
     <div className='search'>
       <div className='search__wrapper-3'>
@@ -66,7 +71,8 @@ export default function SearchForm({
               className='search__checkbox'
               type='checkbox'
               onChange={handleCheckbox}
-              checked={checked}
+              // checked={checked}
+              // defaultChecked={checkbox}
             />
             <span className='search__slider'></span>
           </label>

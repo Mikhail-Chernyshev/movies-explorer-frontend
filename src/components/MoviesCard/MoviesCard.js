@@ -11,7 +11,6 @@ export default function MoviesCard({
   film,
   currentPath,
 }) {
-  console.log(film);
   const {
     country,
     director,
@@ -26,7 +25,6 @@ export default function MoviesCard({
   const token = localStorage.getItem('jwt');
   const MOVIES_URL = 'https://api.nomoreparties.co';
   const linkImg = `${MOVIES_URL}${film.image.url}`;
-  console.log(currentPath);
   function srcImg() {
     if (currentPath === '/movies') {
       return linkImg;

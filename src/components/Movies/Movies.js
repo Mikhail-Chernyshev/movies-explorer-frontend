@@ -24,6 +24,10 @@ export default function Movies({
   storageFilms,
   currentPath,
   isLoading,
+  setSearchValue,
+  setChooseShort,
+  renderedFilms,
+  showMoreFilms,
 }) {
   return (
     <div className='page__wrapper'>
@@ -37,14 +41,20 @@ export default function Movies({
         {isLoading ? <Preloader /> : ''}
 
         <SearchForm
+          allMovies={films}
+          setChooseShort={setChooseShort}
+          setSearchValue={setSearchValue}
           isChooseShort={isChooseShort}
           checkedOrNotCheched={checkedOrNotCheched}
           activeChooseShort={activeChooseShort}
           findMovies={findMovies}
           setSearch={setSearch}
           getAllMovies={getAllMovies}
+          currentPath={currentPath}
         />
         <MoviesCardList
+          showMoreFilms={showMoreFilms}
+          renderedFilms={renderedFilms}
           currentPath={currentPath}
           storageFilms={storageFilms}
           addToUserList={addToUserList}

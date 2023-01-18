@@ -21,30 +21,39 @@ function App() {
   const currentPath = location.pathname;
   const breakpointTable = 1023;
   const breakpointMobile = 768;
+  //массивы фильмов
+  //получаем все фильмы
+  const [allFilms, setAllFilms] = useState([]);
+  //фильмы пользователя
+  const [userFilms, setUserFilms] = useState([]);
+  //фильмы найденные юзером - их передаем в сторадж
+  const [searchFilms, setSearchFilms] = useState([]);
+  //фильмы в локал сторадж
+  const storageFilms = JSON.parse(localStorage.getItem('films'));
+  //состояние чекбокса
+  console.log(localStorage);
+  console.log(searchFilms);
+  console.log(storageFilms);
+  console.log(userFilms);
+  const [chooseShort, setChooseShort] = useState(localStorage.chooseShort);
+  //поисковой запрос
+  const [searchValue, setSearchValue] = useState('');
   //пользователь
   const [currentUser, setCurrentUser] = useState({});
   //статус логина
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //movies on page
+  const [renderedFilms, setRenderedFilms] = useState(3);
   //like?
   const [isLiked, setIsLiked] = useState(false);
   //устанавливаем ширину для отображения блоков
   const [width, setWidth] = useState(window.innerWidth);
   //открываем меню
   const [isOpenMenu, setisOpenMenu] = useState(false);
-  //получаем все фильмы
-  const [allFilms, setAllFilms] = useState([]);
-  //loading
+
+  //loading преолоадер
   const [isLoading, setisLoading] = useState(false);
-  //фильмы пользователя
-  const [userFilms, setUserFilms] = useState([]);
-  //состояние чекбокса
-  const [chooseShort, setChooseShort] = useState(
-    JSON.parse(localStorage.getItem('chooseShort'))
-  );
-  //фильмы найденные юзером
-  const [searchFilms, setSearchFilms] = useState([]);
-  //фильмы в локал сторадж
-  const storageFilms = JSON.parse(localStorage.getItem('films'));
+
   //токен
   const token = localStorage.getItem('jwt');
 
@@ -69,9 +78,17 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('jwt');
     localStorage.removeItem('chooseShort');
-    localStorage.removeItem('name');
-    localStorage.removeItem('films');
+    localStorage.removeItem('checkbox');
+    localStorage.removeItem('search');
+    localStorage.removeItem('searchedFilms');
     setIsLoggedIn(false);
+    setCurrentUser(null);
+    localStorage.clear();
+    setAllFilms([]);
+    setSearchFilms([]);
+    setUserFilms([]);
+    setSearchValue('');
+    navigate('/');
   };
   //добавляем фильм в хранилище
   const addFilmToStorage = (films) => {
@@ -87,6 +104,11 @@ function App() {
     setIsLoggedIn(true);
     navigate('/movies');
   };
+  //показываем больше фильмов
+  function handleShowMoreFilms() {
+    setRenderedFilms(renderedFilms + 3);
+  }
+
   //переключаем стейт чекбокса
   const handleChooseShortMovies = () => {
     if (chooseShort === false) {
@@ -106,27 +128,49 @@ function App() {
       setisLoading(true);
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
-      setUserFilms(findFilms);
       setisLoading(false);
     } else {
       const findFilms = allFilms.filter((el) => el.nameEN.includes(string));
+      setisLoading(true);
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
+      setisLoading(false);
     }
   };
+  useEffect(() => {
+    if (allFilms.length > 0) {
+      const moviesStorage = findMovie(allFilms, searchValue, chooseShort);
+      localStorage.setItem('searchedFilms', JSON.stringify(moviesStorage));
+      localStorage.setItem('search', searchValue);
+      localStorage.setItem('chooseShort', chooseShort);
+
+      setSearchFilms(moviesStorage);
+    }
+  }, [allFilms, searchValue]);
+  function findMovie(allFilms, searchValue, chooseShort) {
+    let shortsFilter = allFilms;
+    let result;
+
+    if (chooseShort) {
+      shortsFilter = shortsFilter.filter((movie) => movie.duration <= 40);
+    }
+
+    result = shortsFilter.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(searchValue.toLowerCase());
+    });
+    return result;
+  }
 
   //эффекты
   //проверяем токен
   useEffect(() => {
-    navigate('/movies');
     handleTokenCheck();
   }, [isLoggedIn]);
-  console.log(localStorage);
   //получаем пользователя и все фильмы с сервера и фильмы юзера
   useEffect(() => {
     if (isLoggedIn) {
       Promise.all([
-        authApi.getUserInfo(localStorage.getItem('jwt')),
+        authApi.getUserInfo(token),
         mainApi.getUserFilms(token),
         moviesApi.getMoviesFromDeatfilm(),
       ])
@@ -183,7 +227,7 @@ function App() {
         if (res.token) localStorage.setItem('jwt', res.token);
         // setAuthEmail(data.email);
         setIsLoggedIn(true);
-        navigate('/');
+        navigate('/movies');
       })
       .catch((err) => {
         console.log(err);
@@ -227,15 +271,32 @@ function App() {
         token
       )
       .then((film) => {
-        setUserFilms([film, ...userFilms]);
+        setUserFilms([...userFilms, film]);
       })
       .catch((err) => {
         console.error(err);
       });
   };
 
+  // const isLiked = (data) => {
+  //   return savedMovies.some(i => i.movieId === data.id && i.owner === currentUser?._id);
+  //   // return savedMovies.some(i => i.movieId === data.id && i.movieId === data._id && i.owner === currentUser._id)
+  // }
+
+  // useEffect(() => {
+  //   if (width >= 1280) {
+  //     setNumber(3);
+  //     setRenderedMovies(12);
+  //   } else if (width >= 768 && width <= 1279) {
+  //     setNumber(2);
+  //     setRenderedMovies(8);
+  //   } else if (width <= 600) {
+  //     setNumber(1);
+  //     setRenderedMovies(5);
+  //   }
+  // }, [width])
+
   //короткие фильмы
-  // const [shortMovie, setShortMovie] = useState([]);
   //search
   // const handleSetSearch = (string) => {
   //   setSearchString(string);
@@ -275,6 +336,10 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <Movies
+                  showMoreFilms={handleShowMoreFilms}
+                  renderedFilms={renderedFilms}
+                  setSearchValue={setSearchValue}
+                  setChooseShort={setChooseShort}
                   isLoading={isLoading}
                   storageFilms={storageFilms}
                   currentPath={currentPath}
