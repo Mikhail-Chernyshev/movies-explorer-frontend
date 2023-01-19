@@ -36,8 +36,9 @@ function App() {
   console.log(storageFilms);
   console.log(userFilms);
   const [chooseShort, setChooseShort] = useState(localStorage.chooseShort);
+  console.log(chooseShort);
   //поисковой запрос
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState(localStorage.search);
   //пользователь
   const [currentUser, setCurrentUser] = useState({});
   //статус логина
@@ -80,6 +81,7 @@ function App() {
     localStorage.removeItem('chooseShort');
     localStorage.removeItem('checkbox');
     localStorage.removeItem('search');
+    localStorage.removeItem('name');
     localStorage.removeItem('searchedFilms');
     setIsLoggedIn(false);
     setCurrentUser(null);
@@ -111,9 +113,10 @@ function App() {
 
   //переключаем стейт чекбокса
   const handleChooseShortMovies = () => {
-    if (chooseShort === false) {
+    if (chooseShort === 'false') {
       setChooseShort(true);
       localStorage.setItem('chooseShort', JSON.stringify(true));
+      console.log(localStorage.chooseShort);
     } else {
       setChooseShort(false);
       localStorage.setItem('chooseShort', JSON.stringify(false));
@@ -121,14 +124,16 @@ function App() {
   };
   //ищем фильмы в поиске
   const findMovies = (string) => {
-    if (chooseShort === true) {
+    if (currentPath === '/saved-movies') {
+      setUserFilms(userFilms.filter((el) => el.nameEN.includes(string)));
+    } else if (chooseShort === true) {
       const findFilms = allFilms.filter(
         (el) => el.nameEN.includes(string) && el.duration < 41
       );
       setisLoading(true);
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
-      setisLoading(false);
+      setTimeout(setisLoading(false), 1000);
     } else {
       const findFilms = allFilms.filter((el) => el.nameEN.includes(string));
       setisLoading(true);
@@ -139,27 +144,22 @@ function App() {
   };
   useEffect(() => {
     if (allFilms.length > 0) {
-      const moviesStorage = findMovie(allFilms, searchValue, chooseShort);
-      localStorage.setItem('searchedFilms', JSON.stringify(moviesStorage));
-      localStorage.setItem('search', searchValue);
-      localStorage.setItem('chooseShort', chooseShort);
+      if (currentPath === '/movies') {
+        const moviesStorage = findMovies(allFilms, searchValue, chooseShort);
+        localStorage.setItem('searchedFilms', JSON.stringify(moviesStorage));
+        localStorage.setItem('search', searchValue);
+        localStorage.setItem('chooseShort', chooseShort);
 
-      setSearchFilms(moviesStorage);
+        setSearchFilms(moviesStorage);
+      } else {
+        const moviesStorage = findMovies(allFilms, searchValue, chooseShort);
+        localStorage.setItem('searchedFilms', JSON.stringify(moviesStorage));
+        localStorage.setItem('chooseShort', chooseShort);
+
+        setSearchFilms(moviesStorage);
+      }
     }
-  }, [allFilms, searchValue]);
-  function findMovie(allFilms, searchValue, chooseShort) {
-    let shortsFilter = allFilms;
-    let result;
-
-    if (chooseShort) {
-      shortsFilter = shortsFilter.filter((movie) => movie.duration <= 40);
-    }
-
-    result = shortsFilter.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(searchValue.toLowerCase());
-    });
-    return result;
-  }
+  }, [currentPath]);
 
   //эффекты
   //проверяем токен

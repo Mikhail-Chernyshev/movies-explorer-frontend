@@ -19,7 +19,7 @@ export default function MoviesCardList({
   // if (width > breakpointTable) {
   return (
     <ul className='movies-card-list'>
-      {currentPath === '/movies' && storageFilms 
+      {currentPath === '/movies' && storageFilms
         ? storageFilms
             .map((film) => {
               return (
@@ -53,7 +53,9 @@ export default function MoviesCardList({
           })
         : ''}
 
-      {/* {  currentPath === '/movies' && storageFilms.length > renderedFilms ? (
+      {currentPath === '/movies' &&
+      storageFilms &&
+      storageFilms.length > renderedFilms ? (
         <div className='movies-card-list__else'>
           <button
             onClick={showMoreFilms}
@@ -64,7 +66,7 @@ export default function MoviesCardList({
         </div>
       ) : (
         ''
-      )} */}
+      )}
     </ul>
   );
   // }

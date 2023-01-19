@@ -29,6 +29,7 @@ export default function Movies({
   renderedFilms,
   showMoreFilms,
 }) {
+  console.log(isLoading);
   return (
     <div className='page__wrapper'>
       <Header
@@ -38,8 +39,6 @@ export default function Movies({
         loggedIn={loggedIn}
       />
       <div className='main'>
-        {isLoading ? <Preloader /> : ''}
-
         <SearchForm
           allMovies={films}
           setChooseShort={setChooseShort}
@@ -52,6 +51,8 @@ export default function Movies({
           getAllMovies={getAllMovies}
           currentPath={currentPath}
         />
+        {isLoading ? <Preloader /> : ''}
+
         <MoviesCardList
           showMoreFilms={showMoreFilms}
           renderedFilms={renderedFilms}

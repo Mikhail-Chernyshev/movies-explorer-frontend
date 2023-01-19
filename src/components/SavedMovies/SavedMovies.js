@@ -19,6 +19,7 @@ export default function SavedMovies({
   findMovies,
 }) {
   return (
+    
     <div className='page__wrapper'>
       <Header
         openMenu={openMenu}
@@ -34,7 +35,6 @@ export default function SavedMovies({
           activeChooseShort={activeChooseShort}
           findMovies={findMovies}
           savedMovies={movies}
-
           // setSearch={setSearch}
           // getAllMovies={getAllMovies}
         />

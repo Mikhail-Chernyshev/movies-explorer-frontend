@@ -11,27 +11,30 @@ export default function SearchForm({
   currentPath,
 }) {
   // const checkbox =
-  //   currentPath === '/movies' && localStorage.chooseShort !== 'undefined'
+  //   currentPath === '/movies' && localStorage.chooseShort !== ''
   //     ? JSON.parse(localStorage.chooseShort)
-  //     : false;
+  //     : 'false';
 
-  // const checked = localStorage.chooseShort
-  //   ? JSON.parse(localStorage.chooseShort)
-  //   : '';
+  const checked =
+    currentPath === '/movies' && localStorage.chooseShort
+      ? JSON.parse(localStorage.chooseShort)
+      : '';
   const { values, handleChange, errors, setValues, setErrors } = useForm();
   function handleCheckbox() {
     activeChooseShort();
   }
   React.useEffect(() => {
-    setValues({ name: localStorage.getItem('name') });
-  }, []);
+    if (currentPath === '/movies') {
+      setValues({ name: localStorage.getItem('search') });
+    }
+  }, [currentPath]);
 
   function onGetFilms(evt) {
     evt.preventDefault();
-
-    // setSearch(evt.target.value);
-    localStorage.setItem('name', values.name);
     findMovies(values.name);
+    if (currentPath === '/movies') {
+      localStorage.setItem('search', values.name);
+    }
   }
 
   return (
@@ -40,7 +43,7 @@ export default function SearchForm({
         <div className='search__wrapper'>
           <form action='1' className='search__form'>
             <input
-              placeholder={localStorage.name}
+              placeholder='Введите название'
               type='text'
               className='search__input'
               required
@@ -72,7 +75,7 @@ export default function SearchForm({
               type='checkbox'
               onChange={handleCheckbox}
               // checked={checked}
-              // defaultChecked={checkbox}
+              defaultChecked={checked}
             />
             <span className='search__slider'></span>
           </label>
