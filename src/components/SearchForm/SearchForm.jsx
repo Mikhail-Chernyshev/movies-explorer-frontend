@@ -16,7 +16,8 @@ export default function SearchForm({
   //     : 'false';
 
   const checked =
-    currentPath === '/movies' && localStorage.chooseShort
+    currentPath === '/movies' ||
+    localStorage.getItem('chooseShort') 
       ? JSON.parse(localStorage.chooseShort)
       : '';
   const { values, handleChange, errors, setValues, setErrors } = useForm();

@@ -28,6 +28,8 @@ export default function Movies({
   setChooseShort,
   renderedFilms,
   showMoreFilms,
+  savedFilms,
+  onDeleteMovie,
 }) {
   console.log(isLoading);
   return (
@@ -54,6 +56,8 @@ export default function Movies({
         {isLoading ? <Preloader /> : ''}
 
         <MoviesCardList
+          onDeleteMovie={onDeleteMovie}
+          savedFilms={savedFilms}
           showMoreFilms={showMoreFilms}
           renderedFilms={renderedFilms}
           currentPath={currentPath}

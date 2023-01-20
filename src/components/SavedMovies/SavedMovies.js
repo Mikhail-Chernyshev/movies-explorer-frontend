@@ -17,9 +17,9 @@ export default function SavedMovies({
   isChooseShort,
   activeChooseShort,
   findMovies,
+  onDeleteMovie
 }) {
   return (
-    
     <div className='page__wrapper'>
       <Header
         openMenu={openMenu}
@@ -39,6 +39,7 @@ export default function SavedMovies({
           // getAllMovies={getAllMovies}
         />
         <MoviesCardList
+          onDeleteMovie={onDeleteMovie}
           currentPath={currentPath}
           savedFilms={movies}
           width={width}

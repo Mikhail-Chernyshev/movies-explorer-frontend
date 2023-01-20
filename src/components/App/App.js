@@ -165,6 +165,7 @@ function App() {
   //проверяем токен
   useEffect(() => {
     handleTokenCheck();
+    localStorage.setItem('chooseShort', false);
   }, [isLoggedIn]);
   //получаем пользователя и все фильмы с сервера и фильмы юзера
   useEffect(() => {
@@ -277,7 +278,29 @@ function App() {
         console.error(err);
       });
   };
-
+  const handleDeleteMovie = (token, movie) => {
+    let idishechka;
+    if (currentPath === '/movies') {
+      let deleteMovie = userFilms.filter((film) => Number(film.movieId) === movie.id);
+      console.log(deleteMovie);
+      // idishechka = movie.id;
+      idishechka = deleteMovie[0]._id;
+    } else {
+      idishechka = movie._id;
+    }
+    console.log(idishechka);
+    mainApi
+      .deleteMovie(token, idishechka)
+      .then(() => {
+        const updatedUserMovies = userFilms.filter(
+          (data) => data._id !== idishechka
+        );
+        setUserFilms(updatedUserMovies);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   // const isLiked = (data) => {
   //   return savedMovies.some(i => i.movieId === data.id && i.owner === currentUser?._id);
   //   // return savedMovies.some(i => i.movieId === data.id && i.movieId === data._id && i.owner === currentUser._id)
@@ -336,6 +359,7 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <Movies
+                  onDeleteMovie={handleDeleteMovie}
                   showMoreFilms={handleShowMoreFilms}
                   renderedFilms={renderedFilms}
                   setSearchValue={setSearchValue}
@@ -356,6 +380,7 @@ function App() {
                   breakpointTable={breakpointTable}
                   loggedIn={isLoggedIn}
                   breakpointMobile={breakpointMobile}
+                  savedFilms={userFilms}
                 />
               </ProtectedRoute>
             }
@@ -365,6 +390,7 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <SavedMovies
+                  onDeleteMovie={handleDeleteMovie}
                   checkedOrNotCheched={checkedOrNotCheched}
                   isChooseShort={chooseShort}
                   activeChooseShort={handleChooseShortMovies}

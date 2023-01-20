@@ -13,6 +13,7 @@ export default function MoviesCardList({
   savedFilms,
   renderedFilms,
   showMoreFilms,
+  onDeleteMovie,
 }) {
   console.log(currentPath);
 
@@ -24,10 +25,12 @@ export default function MoviesCardList({
             .map((film) => {
               return (
                 <MoviesCard
+                  onDeleteMovie={onDeleteMovie}
+                  savedFilms={savedFilms}
                   currentPath={currentPath}
                   addToUserList={addToUserList}
                   id={film.id}
-                  key={currentPath === '/movies' ? film.id : film.movieId}
+                  key={currentPath === '/movies' ? film.id : film._id}
                   duration={film.duration}
                   imagee={film.image}
                   name={film.nameEN}
@@ -40,10 +43,12 @@ export default function MoviesCardList({
         ? savedFilms.map((film) => {
             return (
               <MoviesCard
+                savedFilms={savedFilms}
+                onDeleteMovie={onDeleteMovie}
                 currentPath={currentPath}
                 addToUserList={addToUserList}
                 id={film.id}
-                key={currentPath === '/movies' ? film.id : film.movieId}
+                key={currentPath === '/movies' ? film.id : film._id}
                 duration={film.duration}
                 imagee={film.image}
                 name={film.nameEN}

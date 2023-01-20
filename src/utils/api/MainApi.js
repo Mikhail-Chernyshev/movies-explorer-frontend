@@ -3,8 +3,6 @@ const MOVIES_URL = 'https://api.nomoreparties.co/';
 
 export const MAIN_API = 'https://api.diplomachernyshev.nomoredomains.club';
 
-
-
 export function getUserFilms(token) {
   return fetch(`${MAIN_API}/movies`, {
     method: 'GET',
@@ -59,6 +57,22 @@ export function addMovieToUserList(
   })
     .then((response) => {
       return response.json;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+export function deleteMovie(token, id) {
+  return fetch(`${MAIN_API}/movies/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      //   accept: '*/*',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
     })
     .catch((err) => {
       console.log(err);
