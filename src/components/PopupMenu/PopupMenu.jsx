@@ -18,16 +18,10 @@ export default function PopupMenu({ closeMenu, isOpen }) {
           <Link to='/movies' className='popup-menu__nav-item'>
             Movies
           </Link>
-          <Link
-            to='/saved-movies'
-            className=' popup-menu__nav-item'
-          >
+          <Link to='/saved-movies' className=' popup-menu__nav-item'>
             Saved movies
           </Link>
-          <Link
-            to='/profile'
-            className=' popup-menu__nav-item'
-          >
+          <Link to='/profile' className=' popup-menu__nav-item'>
             Account
           </Link>
         </ul>

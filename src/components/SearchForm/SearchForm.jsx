@@ -5,19 +5,11 @@ import useForm from '../../hooks/useForm';
 export default function SearchForm({
   findMovies,
   activeChooseShort,
-  checkedOrNotCheched,
-  isChooseShort,
-  handleSearch,
   currentPath,
+  findMoviesUser,
 }) {
-  // const checkbox =
-  //   currentPath === '/movies' && localStorage.chooseShort !== ''
-  //     ? JSON.parse(localStorage.chooseShort)
-  //     : 'false';
-
   const checked =
-    currentPath === '/movies' ||
-    localStorage.getItem('chooseShort') 
+    currentPath === '/movies' || localStorage.getItem('chooseShort')
       ? JSON.parse(localStorage.chooseShort)
       : '';
   const { values, handleChange, errors, setValues, setErrors } = useForm();
@@ -32,9 +24,11 @@ export default function SearchForm({
 
   function onGetFilms(evt) {
     evt.preventDefault();
-    findMovies(values.name);
     if (currentPath === '/movies') {
+      findMovies(values.name);
       localStorage.setItem('search', values.name);
+    } else {
+      findMoviesUser(values.name);
     }
   }
 

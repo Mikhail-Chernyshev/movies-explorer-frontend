@@ -6,6 +6,7 @@
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
   background-color: #fdfdfd;
   position: relative;
+  overflow: hidden;
 }
 .movies-card__image {
   margin: 0;
@@ -44,7 +45,9 @@
   right: 14px;
 }
 .movies-card__add_active {
-  background-color: aquamarine;
+  background-color: black;
+  background-image: url(../../images/icon__favourite.svg);
+
 }
 .movies-card__favourite_confirm {
   background-color: black;
@@ -58,7 +61,7 @@
   background-color: #f9f9f9;
   border-radius: 50%;
   border: none;
-  /* background-image: url(../../images/icon__not_favourite.svg); */
+  background-image: url(../../images/icon__delete.svg);
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;

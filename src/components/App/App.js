@@ -26,17 +26,15 @@ function App() {
   const [allFilms, setAllFilms] = useState([]);
   //фильмы пользователя
   const [userFilms, setUserFilms] = useState([]);
+  //show
+  const [showUserFilms, setShowUserFilms] = useState([]);
+  console.log(userFilms);
   //фильмы найденные юзером - их передаем в сторадж
   const [searchFilms, setSearchFilms] = useState([]);
   //фильмы в локал сторадж
   const storageFilms = JSON.parse(localStorage.getItem('films'));
   //состояние чекбокса
-  console.log(localStorage);
-  console.log(searchFilms);
-  console.log(storageFilms);
-  console.log(userFilms);
   const [chooseShort, setChooseShort] = useState(localStorage.chooseShort);
-  console.log(chooseShort);
   //поисковой запрос
   const [searchValue, setSearchValue] = useState(localStorage.search);
   //пользователь
@@ -45,19 +43,14 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   //movies on page
   const [renderedFilms, setRenderedFilms] = useState(3);
-  //like?
-  const [isLiked, setIsLiked] = useState(false);
   //устанавливаем ширину для отображения блоков
   const [width, setWidth] = useState(window.innerWidth);
   //открываем меню
   const [isOpenMenu, setisOpenMenu] = useState(false);
-
   //loading преолоадер
   const [isLoading, setisLoading] = useState(false);
-
   //токен
   const token = localStorage.getItem('jwt');
-
   //функции для стейтов
   //устанавливаем состояние чекбокса
   const checkedOrNotCheched = () => {
@@ -104,7 +97,6 @@ function App() {
       return;
     }
     setIsLoggedIn(true);
-    navigate('/movies');
   };
   //показываем больше фильмов
   function handleShowMoreFilms() {
@@ -116,7 +108,6 @@ function App() {
     if (chooseShort === 'false') {
       setChooseShort(true);
       localStorage.setItem('chooseShort', JSON.stringify(true));
-      console.log(localStorage.chooseShort);
     } else {
       setChooseShort(false);
       localStorage.setItem('chooseShort', JSON.stringify(false));
@@ -124,9 +115,7 @@ function App() {
   };
   //ищем фильмы в поиске
   const findMovies = (string) => {
-    if (currentPath === '/saved-movies') {
-      setUserFilms(userFilms.filter((el) => el.nameEN.includes(string)));
-    } else if (chooseShort === true) {
+    if (chooseShort === true) {
       const findFilms = allFilms.filter(
         (el) => el.nameEN.includes(string) && el.duration < 41
       );
@@ -134,6 +123,7 @@ function App() {
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
       setTimeout(setisLoading(false), 1000);
+    } else if (string === '') {
     } else {
       const findFilms = allFilms.filter((el) => el.nameEN.includes(string));
       setisLoading(true);
@@ -142,29 +132,20 @@ function App() {
       setisLoading(false);
     }
   };
-  useEffect(() => {
-    if (allFilms.length > 0) {
-      if (currentPath === '/movies') {
-        const moviesStorage = findMovies(allFilms, searchValue, chooseShort);
-        localStorage.setItem('searchedFilms', JSON.stringify(moviesStorage));
-        localStorage.setItem('search', searchValue);
-        localStorage.setItem('chooseShort', chooseShort);
-
-        setSearchFilms(moviesStorage);
-      } else {
-        const moviesStorage = findMovies(allFilms, searchValue, chooseShort);
-        localStorage.setItem('searchedFilms', JSON.stringify(moviesStorage));
-        localStorage.setItem('chooseShort', chooseShort);
-
-        setSearchFilms(moviesStorage);
-      }
+  const findMoviesUser = (string) => {
+    if (chooseShort === true) {
+      setShowUserFilms(
+        userFilms.filter((el) => el.nameEN.includes(string) && el.duration < 41)
+      );
+    } else {
+      setShowUserFilms(userFilms.filter((el) => el.nameEN.includes(string)));
     }
-  }, [currentPath]);
-
+  };
   //эффекты
   //проверяем токен
   useEffect(() => {
     handleTokenCheck();
+    navigate('/movies');
     localStorage.setItem('chooseShort', false);
   }, [isLoggedIn]);
   //получаем пользователя и все фильмы с сервера и фильмы юзера
@@ -177,6 +158,7 @@ function App() {
       ])
         .then(([user, userFilms, films]) => {
           setCurrentUser(user);
+          setShowUserFilms(userFilms);
           setUserFilms(userFilms);
           setAllFilms(films);
         })
@@ -185,6 +167,7 @@ function App() {
         });
     }
   }, [isLoggedIn]);
+
   //что-то делаем с размером экрана
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
@@ -196,19 +179,6 @@ function App() {
     };
   }, []);
 
-  //функции запросы к серверу
-  //получаем все фильмы с сервера
-  const getAllMovies = () => {
-    moviesApi
-      .getMoviesFromDeatfilm()
-      .then((films) => {
-        console.log(films);
-        setAllFilms(films);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   //регистрация пользователя
   const handleRegister = (data) => {
     authApi
@@ -226,7 +196,6 @@ function App() {
       .login(data)
       .then((res) => {
         if (res.token) localStorage.setItem('jwt', res.token);
-        // setAuthEmail(data.email);
         setIsLoggedIn(true);
         navigate('/movies');
       })
@@ -281,14 +250,13 @@ function App() {
   const handleDeleteMovie = (token, movie) => {
     let idishechka;
     if (currentPath === '/movies') {
-      let deleteMovie = userFilms.filter((film) => Number(film.movieId) === movie.id);
-      console.log(deleteMovie);
-      // idishechka = movie.id;
+      let deleteMovie = userFilms.filter(
+        (film) => Number(film.movieId) === movie.id
+      );
       idishechka = deleteMovie[0]._id;
     } else {
       idishechka = movie._id;
     }
-    console.log(idishechka);
     mainApi
       .deleteMovie(token, idishechka)
       .then(() => {
@@ -301,10 +269,6 @@ function App() {
         console.error(err);
       });
   };
-  // const isLiked = (data) => {
-  //   return savedMovies.some(i => i.movieId === data.id && i.owner === currentUser?._id);
-  //   // return savedMovies.some(i => i.movieId === data.id && i.movieId === data._id && i.owner === currentUser._id)
-  // }
 
   // useEffect(() => {
   //   if (width >= 1280) {
@@ -319,24 +283,6 @@ function App() {
   //   }
   // }, [width])
 
-  //короткие фильмы
-  //search
-  // const handleSetSearch = (string) => {
-  //   setSearchString(string);
-  // };
-  // получаем короткие фильмы
-  // const getShortMovies = () => {
-  //   setShortMovie(allFilms.filter((el) => el.duration < 41));
-  //   setUserFilms(allFilms.filter((el) => el.duration < 41));
-  // };
-  //меняем состояние стейта редактирования
-  // const handleSetChangeUser = () => {
-  //   if (isChange === false) {
-  //     setIsChange(true);
-  //   } else {
-  //     setIsChange(false);
-  //   }
-  // };
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
@@ -353,7 +299,6 @@ function App() {
               />
             }
           ></Route>
-
           <Route
             path='/movies'
             element={
@@ -362,19 +307,12 @@ function App() {
                   onDeleteMovie={handleDeleteMovie}
                   showMoreFilms={handleShowMoreFilms}
                   renderedFilms={renderedFilms}
-                  setSearchValue={setSearchValue}
-                  setChooseShort={setChooseShort}
                   isLoading={isLoading}
                   storageFilms={storageFilms}
                   currentPath={currentPath}
-                  checkedOrNotCheched={checkedOrNotCheched}
-                  isChooseShort={chooseShort}
                   activeChooseShort={handleChooseShortMovies}
                   addToUserList={handleAddToUserList}
-                  searchFilms={searchFilms}
                   findMovies={findMovies}
-                  films={allFilms}
-                  getAllMovies={getAllMovies}
                   openMenu={handleOpenMenu}
                   width={width}
                   breakpointTable={breakpointTable}
@@ -390,12 +328,13 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <SavedMovies
+                  findMoviesUser={findMoviesUser}
                   onDeleteMovie={handleDeleteMovie}
                   checkedOrNotCheched={checkedOrNotCheched}
                   isChooseShort={chooseShort}
                   activeChooseShort={handleChooseShortMovies}
                   currentPath={currentPath}
-                  movies={userFilms}
+                  movies={showUserFilms}
                   openMenu={handleOpenMenu}
                   findMovies={findMovies}
                   width={width}
@@ -411,8 +350,6 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <Profile
-                  // onChangeUser={handleSetChangeUser}
-                  // isChange={isChange}
                   user={currentUser}
                   loggedOut={handleLogout}
                   width={width}
@@ -434,11 +371,7 @@ function App() {
             path='/signin'
             element={<Login onLogin={handleLogin} loggedIn={isLoggedIn} />}
           ></Route>
-          <Route
-            path='/*'
-            //  element={isLoggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />}
-            element={<NotFound />}
-          />
+          <Route path='/*' element={<NotFound />} />
         </Routes>
         <PopupMenu closeMenu={handleCloseMenu} isOpen={isOpenMenu} />
       </div>

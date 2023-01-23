@@ -1,12 +1,10 @@
 import React from 'react';
 import './MoviesCard.css';
 import me from '../../images/IMG_3459.jpg';
-import { TfiClose } from 'react-icons/tfi';
 
 export default function MoviesCard({
   duration,
   name,
-  imagee,
   id,
   addToUserList,
   film,
@@ -24,20 +22,16 @@ export default function MoviesCard({
     nameEN,
     image,
   } = film;
-  //   const cardImage ={
-  //     background: 'url(' + TfiClose + ') no-repeat center top/cover'
-  // };
-  console.log(savedFilms);
+
   const isLiked = savedFilms.some((item) => Number(item.movieId) === film.id);
-  console.log(isLiked);
-  console.log(film);
   const token = localStorage.getItem('jwt');
   function onDeleteMovieFromUser() {
     onDeleteMovie(token, film);
   }
-  const { url } = image;
+  const { url } = currentPath === '/movies' ? image : '';
   const MOVIES_URL = 'https://api.nomoreparties.co';
-  const linkImg = `${MOVIES_URL}${film.image.url}`;
+  const linkImg =
+    currentPath === '/movies' ? `${MOVIES_URL}${film.image.url}` : '';
   function srcImg() {
     if (currentPath === '/movies') {
       return linkImg;
@@ -72,28 +66,22 @@ export default function MoviesCard({
           className={`movies-card__add ${
             isLiked === true ? 'movies-card__add_active' : ''
           }`}
-          // onClick={onFavouriteClick}
-          // className='movies-card__add'
         ></button>
       ) : (
         ''
       )}
       {currentPath === '/saved-movies' ? (
         <button
-          // style={{ backgroundImage: `url(${TfiClose})` }}
-          // style={{background: `url(${SpeechBubble1})`}}
-          // style={cardImage}
           type='button'
           className='movies-card__favourite'
           onClick={onDeleteMovieFromUser}
-        >
-          x
-        </button>
+        ></button>
       ) : (
         ''
       )}
-
-      <img src={srcImg()} alt={name} className='movies-card__image' />
+      <a href={film.trailerLink} target='_blanc' className=''>
+        <img src={srcImg()} alt={name} className='movies-card__image' />
+      </a>
     </li>
   );
 }

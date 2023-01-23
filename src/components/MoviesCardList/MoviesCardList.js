@@ -3,11 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 export default function MoviesCardList({
-  width,
-  breakpointTable,
-  films,
   addToUserList,
-  searchFilms,
   storageFilms,
   currentPath,
   savedFilms,
@@ -15,9 +11,8 @@ export default function MoviesCardList({
   showMoreFilms,
   onDeleteMovie,
 }) {
-  console.log(currentPath);
+  console.log(savedFilms);
 
-  // if (width > breakpointTable) {
   return (
     <ul className='movies-card-list'>
       {currentPath === '/movies' && storageFilms
@@ -29,12 +24,11 @@ export default function MoviesCardList({
                   savedFilms={savedFilms}
                   currentPath={currentPath}
                   addToUserList={addToUserList}
+                  film={film}
                   id={film.id}
                   key={currentPath === '/movies' ? film.id : film._id}
                   duration={film.duration}
-                  imagee={film.image}
                   name={film.nameEN}
-                  film={film}
                 />
               );
             })
@@ -50,7 +44,6 @@ export default function MoviesCardList({
                 id={film.id}
                 key={currentPath === '/movies' ? film.id : film._id}
                 duration={film.duration}
-                imagee={film.image}
                 name={film.nameEN}
                 film={film}
               />
@@ -74,27 +67,4 @@ export default function MoviesCardList({
       )}
     </ul>
   );
-  // }
-  // return (
-  //   <section className='movies-card-list'>
-  //     {searchFilms
-  //       ? searchFilms.map((film) => {
-  //           return (
-  //             <MoviesCard
-  //               addToUserList={addToUserList}
-  //               id={film.id}
-  //               key={film.id}
-  //               duration={film.duration}
-  //               name={film.nameEN}
-  //               film={film}
-  //             />
-  //           );
-  //         })
-  //       : ''}
-
-  //     <div className='movies-card-list__else'>
-  //       <button className='movies-card-list__else-button'>Else</button>
-  //     </div>
-  //   </section>
-  // );
 }

@@ -12,26 +12,17 @@ export default function Movies({
   breakpointTable,
   openMenu,
   breakpointMobile,
-  getAllMovies,
-  films,
-  setSearch,
   findMovies,
-  searchFilms,
   addToUserList,
   activeChooseShort,
-  isChooseShort,
-  checkedOrNotCheched,
   storageFilms,
   currentPath,
   isLoading,
-  setSearchValue,
-  setChooseShort,
   renderedFilms,
   showMoreFilms,
   savedFilms,
   onDeleteMovie,
 }) {
-  console.log(isLoading);
   return (
     <div className='page__wrapper'>
       <Header
@@ -42,15 +33,8 @@ export default function Movies({
       />
       <div className='main'>
         <SearchForm
-          allMovies={films}
-          setChooseShort={setChooseShort}
-          setSearchValue={setSearchValue}
-          isChooseShort={isChooseShort}
-          checkedOrNotCheched={checkedOrNotCheched}
           activeChooseShort={activeChooseShort}
           findMovies={findMovies}
-          setSearch={setSearch}
-          getAllMovies={getAllMovies}
           currentPath={currentPath}
         />
         {isLoading ? <Preloader /> : ''}
@@ -63,10 +47,6 @@ export default function Movies({
           currentPath={currentPath}
           storageFilms={storageFilms}
           addToUserList={addToUserList}
-          searchFilms={searchFilms}
-          films={films}
-          width={width}
-          breakpointTable={breakpointTable}
         />
       </div>
 

@@ -6,6 +6,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import './SavedMovies.css';
 
 export default function SavedMovies({
+  onDeleteMovie,
   loggedIn,
   width,
   breakpointTable,
@@ -13,11 +14,9 @@ export default function SavedMovies({
   breakpointMobile,
   movies,
   currentPath,
-  checkedOrNotCheched,
-  isChooseShort,
   activeChooseShort,
   findMovies,
-  onDeleteMovie
+  findMoviesUser,
 }) {
   return (
     <div className='page__wrapper'>
@@ -29,14 +28,10 @@ export default function SavedMovies({
       />
       <div className='main'>
         <SearchForm
+          findMoviesUser={findMoviesUser}
           currentPath={currentPath}
-          isChooseShort={isChooseShort}
-          checkedOrNotCheched={checkedOrNotCheched}
           activeChooseShort={activeChooseShort}
           findMovies={findMovies}
-          savedMovies={movies}
-          // setSearch={setSearch}
-          // getAllMovies={getAllMovies}
         />
         <MoviesCardList
           onDeleteMovie={onDeleteMovie}

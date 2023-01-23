@@ -12,7 +12,6 @@ export default function Profile({
   loggedOut,
   user,
   onEditUser,
-
 }) {
   const {
     values,
@@ -65,12 +64,10 @@ export default function Profile({
                 minLength='2 '
                 maxLength='30'
                 name='name'
-                // className='register__input'
                 required
                 value={values.name || ''}
                 onChange={handleChange}
                 placeholder='Введите имя'
-                // disabled
               ></input>
             </div>
             <div className='profile__line'></div>
@@ -83,12 +80,10 @@ export default function Profile({
                 minLength='2 '
                 maxLength='100'
                 name='email'
-                // className='register__input'
                 required
                 value={values.email || ''}
                 onChange={handleChange}
                 placeholder='Введите почту'
-                // disabled
               ></input>
             </div>
             <button
