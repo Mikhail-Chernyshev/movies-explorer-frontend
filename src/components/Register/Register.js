@@ -43,8 +43,8 @@ export default function Register({ loggedIn, onRegister }) {
             value={values.name || ''}
             onChange={handleChange}
           />
-          {errors.email && (
-            <span className='register__input-error'>{errors.email}</span>
+          {errors.name && (
+            <span className='register__input-error'>{errors.name}</span>
           )}
         </div>
         <div className='register__container'>
@@ -60,7 +60,7 @@ export default function Register({ loggedIn, onRegister }) {
             value={values.email || ''}
             onChange={handleChange}
             placeholder='Email'
-            type='text'
+            type='email'
           />
           {errors.email && (
             <span className='register__input-error'>{errors.email}</span>
@@ -72,7 +72,7 @@ export default function Register({ loggedIn, onRegister }) {
           <input
             type='password'
             id='password-input'
-            minLength='2 '
+            minLength='8'
             maxLength='400'
             name='password'
             className='register__input'
@@ -81,10 +81,9 @@ export default function Register({ loggedIn, onRegister }) {
             onChange={handleChange}
             placeholder='Password'
           />
-          {errors.email && (
-            <span className='register__input-error'>{errors.email}</span>
+          {errors.password && (
+            <span className='register__input-error'>{errors.password}</span>
           )}
-          <p className='register__label register__error'>Some error</p>
         </div>
 
         <button

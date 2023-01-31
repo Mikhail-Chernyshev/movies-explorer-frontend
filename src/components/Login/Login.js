@@ -32,7 +32,7 @@ export default function Login({ onLogin }) {
         <div className='register__container'>
           <label className='register__label'>Email</label>
           <input
-            type='text'
+            type='email'
             id='email-input'
             minLength='2 '
             maxLength='400'
@@ -51,7 +51,7 @@ export default function Login({ onLogin }) {
           <label className='register__label'>Password</label>
 
           <input
-            type='text'
+            type='password'
             id='password-input'
             minLength='2 '
             maxLength='400'
@@ -62,8 +62,8 @@ export default function Login({ onLogin }) {
             onChange={handleChange}
             placeholder='Password'
           />
-          {errors.email && (
-            <span className='register__input-error'>{errors.email}</span>
+          {errors.password && (
+            <span className='register__input-error'>{errors.password}</span>
           )}
         </div>
 
@@ -77,9 +77,9 @@ export default function Login({ onLogin }) {
         </button>
       </form>
       <p className='register__answer'>
-        Don't have account?
+        Don't have account? 
         <Link to='/signup' className='register__link'>
-          Sign up.
+           Sign up.
         </Link>
       </p>
     </div>
