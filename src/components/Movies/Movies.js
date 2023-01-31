@@ -22,6 +22,7 @@ export default function Movies({
   showMoreFilms,
   savedFilms,
   onDeleteMovie,
+  error,
 }) {
   return (
     <div className='page__wrapper'>
@@ -33,21 +34,24 @@ export default function Movies({
       />
       <div className='main'>
         <SearchForm
+          errorr={error}
           activeChooseShort={activeChooseShort}
           findMovies={findMovies}
           currentPath={currentPath}
         />
-        {isLoading ? <Preloader /> : ''}
-
-        <MoviesCardList
-          onDeleteMovie={onDeleteMovie}
-          savedFilms={savedFilms}
-          showMoreFilms={showMoreFilms}
-          renderedFilms={renderedFilms}
-          currentPath={currentPath}
-          storageFilms={storageFilms}
-          addToUserList={addToUserList}
-        />
+        {isLoading === true ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList
+            onDeleteMovie={onDeleteMovie}
+            savedFilms={savedFilms}
+            showMoreFilms={showMoreFilms}
+            renderedFilms={renderedFilms}
+            currentPath={currentPath}
+            storageFilms={storageFilms}
+            addToUserList={addToUserList}
+          />
+        )}
       </div>
 
       <Footer width={width} breakpointMobile={breakpointMobile} />

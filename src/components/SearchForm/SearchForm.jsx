@@ -7,12 +7,20 @@ export default function SearchForm({
   activeChooseShort,
   currentPath,
   findMoviesUser,
+  errorr,
 }) {
   const checked =
     currentPath === '/movies' || localStorage.getItem('chooseShort')
       ? JSON.parse(localStorage.chooseShort)
       : '';
-  const { values, handleChange, errors, setValues, setErrors } = useForm();
+  const {
+    values,
+    handleChange,
+    errors,
+    setValues,
+    setErrors,
+    isValid,
+  } = useForm();
   function handleCheckbox() {
     activeChooseShort();
   }
@@ -20,7 +28,7 @@ export default function SearchForm({
     if (currentPath === '/movies') {
       setValues({ name: localStorage.getItem('search') });
     }
-  }, [currentPath]);
+  }, [currentPath, setValues]);
 
   function onGetFilms(evt) {
     evt.preventDefault();
@@ -54,13 +62,14 @@ export default function SearchForm({
               type='submit'
               onClick={onGetFilms}
               className='search__submit'
+              disabled={!isValid}
             ></button>
           </form>
-          {errors.name && (
-            <span className='search__input-error'>
-              Нужно ввести ключевое слово
-            </span>
-          )}
+          {currentPath === '/movies'
+            ? errors.name && (
+                <span className='search__input-error'>Enter request</span>
+              )
+            : ''}
         </div>
         <div className='search__wrapper-2'>
           <p className='search__label'>Short</p>

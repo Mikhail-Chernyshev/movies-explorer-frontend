@@ -28,7 +28,6 @@ function App() {
   const [userFilms, setUserFilms] = useState([]);
   //show
   const [showUserFilms, setShowUserFilms] = useState([]);
-  console.log(userFilms);
   //фильмы найденные юзером - их передаем в сторадж
   const [searchFilms, setSearchFilms] = useState([]);
   //фильмы в локал сторадж
@@ -49,6 +48,8 @@ function App() {
   const [isOpenMenu, setisOpenMenu] = useState(false);
   //loading преолоадер
   const [isLoading, setisLoading] = useState(false);
+  //error
+  const [error, setError] = useState('');
   //токен
   const token = localStorage.getItem('jwt');
   //функции для стейтов
@@ -115,23 +116,29 @@ function App() {
   };
   //ищем фильмы в поиске
   const findMovies = (string) => {
+    // setisLoading(true);
+
     if (chooseShort === true) {
       const findFilms = allFilms.filter(
         (el) => el.nameEN.includes(string) && el.duration < 41
       );
-      setisLoading(true);
-      addFilmToStorage(findFilms);
-      setSearchFilms(findFilms);
-      setTimeout(setisLoading(false), 1000);
-    } else if (string === '') {
-    } else {
-      const findFilms = allFilms.filter((el) => el.nameEN.includes(string));
-      setisLoading(true);
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
       setisLoading(false);
+    } else if (string === '') {
+      setError('Empty request');
+      // setisLoading(false);
+      localStorage.setItem('films', JSON.stringify([]));
+
+      setSearchFilms([]);
+    } else {
+      const findFilms = allFilms.filter((el) => el.nameEN.includes(string));
+      addFilmToStorage(findFilms);
+      setSearchFilms(findFilms);
+      // setisLoading(false);
     }
   };
+
   const findMoviesUser = (string) => {
     if (chooseShort === true) {
       setShowUserFilms(
@@ -144,11 +151,14 @@ function App() {
   //эффекты
   //проверяем токен
   useEffect(() => {
+    // if (isLoggedIn) {
     handleTokenCheck();
     navigate('/movies');
     localStorage.setItem('chooseShort', false);
+    // }
   }, [isLoggedIn]);
-  //получаем пользователя и все фильмы с сервера и фильмы юзера
+
+  // получаем пользователя и все фильмы с сервера и фильмы юзера
   useEffect(() => {
     if (isLoggedIn) {
       Promise.all([
@@ -157,6 +167,7 @@ function App() {
         moviesApi.getMoviesFromDeatfilm(),
       ])
         .then(([user, userFilms, films]) => {
+          setisLoading(true);
           setCurrentUser(user);
           setShowUserFilms(userFilms);
           setUserFilms(userFilms);
@@ -164,6 +175,9 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          setisLoading(false);
         });
     }
   }, [isLoggedIn]);
@@ -304,6 +318,7 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <Movies
+                  error={error}
                   onDeleteMovie={handleDeleteMovie}
                   showMoreFilms={handleShowMoreFilms}
                   renderedFilms={renderedFilms}
