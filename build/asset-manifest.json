@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.abc12eea.css",
+    "main.js": "/static/js/main.99b1ee4b.js",
+    "static/media/Inter-Medium.woff": "/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/IMG_3459.jpg": "/static/media/IMG_3459.2bfae596dab961f100a3.jpg",
+    "static/media/Inter-Medium.woff2": "/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/logo-diploma.svg": "/static/media/logo-diploma.e8d6d3e10b8f14e67f9b.svg",
+    "index.html": "/index.html",
+    "static/media/text__COLOR_invisible.svg": "/static/media/text__COLOR_invisible.03edbb3e9bcbc5ac29ef.svg",
+    "static/media/icon__not_favourite.svg": "/static/media/icon__not_favourite.bde1ae1aa2c66abec187.svg",
+    "static/media/burdeg-icon.svg": "/static/media/burdeg-icon.08035af1e508cd8cfed5.svg",
+    "static/media/icon__favourite.svg": "/static/media/icon__favourite.b3917aaa7195bca16ee4.svg",
+    "static/media/icon__delete.svg": "/static/media/icon__delete.59395c340f0811d519ba.svg",
+    "static/media/popup-close.svg": "/static/media/popup-close.80dfd5bd01b8fe0a895e.svg",
+    "main.abc12eea.css.map": "/static/css/main.abc12eea.css.map",
+    "main.99b1ee4b.js.map": "/static/js/main.99b1ee4b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.abc12eea.css",
+    "static/js/main.99b1ee4b.js"
+  ]
+}
