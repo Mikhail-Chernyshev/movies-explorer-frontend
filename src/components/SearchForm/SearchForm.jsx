@@ -8,19 +8,16 @@ export default function SearchForm({
   currentPath,
   findMoviesUser,
   errorr,
+  storageFilms,
+  isLoading,
+  errorRequest,
 }) {
   const checked =
     currentPath === '/movies' || localStorage.getItem('chooseShort')
       ? JSON.parse(localStorage.chooseShort)
       : '';
-  const {
-    values,
-    handleChange,
-    errors,
-    setValues,
-    setErrors,
-    isValid,
-  } = useForm();
+  const { values, handleChange, errors, setValues, setErrors, isValid } =
+    useForm();
   function handleCheckbox() {
     activeChooseShort();
   }
@@ -70,6 +67,20 @@ export default function SearchForm({
                 <span className='search__input-error'>Enter request</span>
               )
             : ''}
+          {isLoading === false && storageFilms.length < 1 ? (
+            <p>Ничего не найдено</p>
+          ) : (
+            ''
+          )}
+          {errorRequest === true ? (
+            <p>
+              Во время запроса произошла ошибка. Возможно, проблема с
+              соединением или сервер недоступен. Подождите немного и попробуйте
+              ещё раз
+            </p>
+          ) : (
+            ''
+          )}
         </div>
         <div className='search__wrapper-2'>
           <p className='search__label'>Short</p>

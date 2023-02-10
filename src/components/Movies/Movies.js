@@ -23,6 +23,7 @@ export default function Movies({
   savedFilms,
   onDeleteMovie,
   error,
+  errorRequest,
 }) {
   return (
     <div className='page__wrapper'>
@@ -34,6 +35,9 @@ export default function Movies({
       />
       <div className='main'>
         <SearchForm
+          errorRequest={errorRequest}
+          isLoading={isLoading}
+          storageFilms={storageFilms}
           errorr={error}
           activeChooseShort={activeChooseShort}
           findMovies={findMovies}

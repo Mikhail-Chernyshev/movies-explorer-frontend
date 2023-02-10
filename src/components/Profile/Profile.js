@@ -8,7 +8,7 @@ export default function Profile({
   loggedIn,
   openMenu,
   width,
-  breakpoint,
+  breakpointTable,
   loggedOut,
   user,
   onEditUser,
@@ -47,7 +47,7 @@ export default function Profile({
     <div className='page__wrapper'>
       <Header
         width={width}
-        breakpoint={breakpoint}
+        breakpointTable={breakpointTable}
         openMenu={openMenu}
         loggedIn={loggedIn}
       />

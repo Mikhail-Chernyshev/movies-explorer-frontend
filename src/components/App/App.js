@@ -50,6 +50,7 @@ function App() {
   const [isLoading, setisLoading] = useState(false);
   //error
   const [error, setError] = useState('');
+  const [errorRequest, seterrorRequest] = useState(false);
   //токен
   const token = localStorage.getItem('jwt');
   //функции для стейтов
@@ -116,18 +117,17 @@ function App() {
   };
   //ищем фильмы в поиске
   const findMovies = (string) => {
-    // setisLoading(true);
-
+    setisLoading(true);
     if (chooseShort === true) {
       const findFilms = allFilms.filter(
         (el) => el.nameEN.includes(string) && el.duration < 41
       );
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
-      setisLoading(false);
+      finishSearch();
     } else if (string === '') {
       setError('Empty request');
-      // setisLoading(false);
+      finishSearch();
       localStorage.setItem('films', JSON.stringify([]));
 
       setSearchFilms([]);
@@ -135,7 +135,7 @@ function App() {
       const findFilms = allFilms.filter((el) => el.nameEN.includes(string));
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
-      // setisLoading(false);
+      finishSearch();
     }
   };
 
@@ -167,28 +167,28 @@ function App() {
         moviesApi.getMoviesFromDeatfilm(),
       ])
         .then(([user, userFilms, films]) => {
-          setisLoading(true);
           setCurrentUser(user);
           setShowUserFilms(userFilms);
           setUserFilms(userFilms);
           setAllFilms(films);
         })
         .catch((err) => {
+          seterrorRequest(true);
           console.log(err);
         })
-        .finally(() => {
-          setisLoading(false);
-        });
+        .finally(() => {});
     }
   }, [isLoggedIn]);
-
-  //что-то делаем с размером экрана
+  function finishSearch() {
+    setTimeout(() => {
+      setisLoading(false);
+    }, 1000);
+  }
+  //размер экрана
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
-    // subscribe to window resize event "onComponentDidMount"
     window.addEventListener('resize', handleResizeWindow);
     return () => {
-      // unsubscribe "onComponentDestroy"
       window.removeEventListener('resize', handleResizeWindow);
     };
   }, []);
@@ -284,19 +284,6 @@ function App() {
       });
   };
 
-  // useEffect(() => {
-  //   if (width >= 1280) {
-  //     setNumber(3);
-  //     setRenderedMovies(12);
-  //   } else if (width >= 768 && width <= 1279) {
-  //     setNumber(2);
-  //     setRenderedMovies(8);
-  //   } else if (width <= 600) {
-  //     setNumber(1);
-  //     setRenderedMovies(5);
-  //   }
-  // }, [width])
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
@@ -318,6 +305,7 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <Movies
+                  errorRequest={errorRequest}
                   error={error}
                   onDeleteMovie={handleDeleteMovie}
                   showMoreFilms={handleShowMoreFilms}
