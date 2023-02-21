@@ -153,7 +153,9 @@ function App() {
   useEffect(() => {
     // if (isLoggedIn) {
     handleTokenCheck();
-    navigate('/movies');
+    if (isLoggedIn) {
+      // navigate('/movies');
+    }
     localStorage.setItem('chooseShort', false);
     // }
   }, [isLoggedIn]);
