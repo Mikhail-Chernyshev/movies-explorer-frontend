@@ -27,8 +27,17 @@
   line-height: 16px;
   outline: none;
   border: none;
+  text-decoration: none;
 }
 .header__button_login {
+  height: 32px;
+  width: 76px;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 3px 4px;
+  border-radius: 3px;
+}
+.header__button_login:visited {
   height: 32px;
   width: 76px;
   background-color: #000000;
@@ -41,7 +50,9 @@
   width: 77px;
   background-color: #ffffff;
 }
-
+.header__button_register:visited {
+  color: #000000;
+}
 @media screen and (max-width: 1023px) {
   .header__logo {
     margin-left: 30px;
