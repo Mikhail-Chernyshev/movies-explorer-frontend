@@ -9,10 +9,7 @@ const useForm = () => {
     const { name, value } = evt.target;
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: evt.target.validationMessage });
-    setIsValid(evt.target.closest('.search__form').checkValidity());
-    // if (values[name] !== [name].value) {
-    //   setIsValid(true);
-    // }
+    setIsValid(evt.target.closest('.register__form').checkValidity());
   };
 
   const resetForm = useCallback(

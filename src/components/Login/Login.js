@@ -26,7 +26,9 @@ export default function Login({ onLogin }) {
   };
   return (
     <div className='register'>
-      <div className='register__logo '></div>
+      <a href='/' className='register__wrapper-logo'>
+        <div className='register__logo '></div>
+      </a>
       <h2 className='register__title'>Nice to see you!</h2>
       <form className='register__form' noValidate>
         <div className='register__container'>
@@ -77,9 +79,9 @@ export default function Login({ onLogin }) {
         </button>
       </form>
       <p className='register__answer'>
-        Don't have account? 
+        Don't have account?
         <Link to='/signup' className='register__link'>
-           Sign up.
+          Sign up.
         </Link>
       </p>
     </div>

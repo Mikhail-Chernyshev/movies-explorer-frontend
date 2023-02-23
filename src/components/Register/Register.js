@@ -26,7 +26,9 @@ export default function Register({ loggedIn, onRegister }) {
 
   return (
     <div className='register'>
-      <div className='register__logo'></div>
+      <a href='/' className='register__wrapper-logo'>
+        <div className='register__logo'></div>
+      </a>
       <h2 className='register__title'>Wellcome, user.</h2>
       <form className='register__form' noValidate>
         <div className='register__container'>
