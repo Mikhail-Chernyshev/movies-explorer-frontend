@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import './Profile.css';
 import useForm from '../../hooks/useForm';
@@ -23,6 +23,7 @@ export default function Profile({
     setIsValid,
     setErrors,
   } = useForm();
+  const navigate = useNavigate();
   const token = localStorage.getItem('jwt');
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -99,7 +100,7 @@ export default function Profile({
           </form>
 
           <Link
-            to='/signin'
+            to='/'
             onClick={handleLeave}
             className='profile__button profile__button_leave'
           >
