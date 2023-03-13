@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Navigation.css';
 
 export default function Navigation({ width, breakpointTable, openMenu }) {
-  console.log(width);
   if (width > breakpointTable) {
   return (
     <div className='navigation'>

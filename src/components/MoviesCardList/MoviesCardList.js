@@ -10,8 +10,8 @@ export default function MoviesCardList({
   renderedFilms,
   showMoreFilms,
   onDeleteMovie,
+  
 }) {
-  console.log(storageFilms);
   return (
     <ul className='movies-card-list'>
       {currentPath === '/movies' && storageFilms

@@ -22,7 +22,7 @@ export default function MoviesCard({
     nameEN,
     image,
   } = film;
-  // useEffect(() => {}, [isLiked]);
+
   const isLiked = savedFilms.some((item) => Number(item.movieId) === film.id);
   const token = localStorage.getItem('jwt');
   function onDeleteMovieFromUser() {
@@ -32,6 +32,7 @@ export default function MoviesCard({
   const MOVIES_URL = 'https://api.nomoreparties.co';
   const linkImg =
     currentPath === '/movies' ? `${MOVIES_URL}${film.image.url}` : '';
+
   function srcImg() {
     if (currentPath === '/movies') {
       return linkImg;

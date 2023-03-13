@@ -16,6 +16,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
+  console.log(localStorage);
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
@@ -106,18 +107,18 @@ function App() {
 
   //переключаем стейт чекбокса
   const handleChooseShortMovies = () => {
-    if (chooseShort === 'false') {
-      setChooseShort(true);
+    if (localStorage.chooseShort === 'false') {
+      // setChooseShort(true);
       localStorage.setItem('chooseShort', JSON.stringify(true));
     } else {
-      setChooseShort(false);
+      // setChooseShort(false);
       localStorage.setItem('chooseShort', JSON.stringify(false));
     }
   };
   //ищем фильмы в поиске
   const findMovies = (string) => {
     setisLoading(true);
-    if (chooseShort === true) {
+    if (localStorage.chooseShort === 'true') {
       const findFilms = allFilms.filter(
         (el) =>
           (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
@@ -147,7 +148,7 @@ function App() {
   };
 
   const findMoviesUser = (string) => {
-    if (chooseShort === true) {
+    if (localStorage.chooseShort === 'true') {
       setShowUserFilms(
         userFilms.filter((el) => el.nameEN.includes(string) && el.duration < 41)
       );
@@ -158,13 +159,10 @@ function App() {
   //эффекты
   //проверяем токен
   useEffect(() => {
-    // if (isLoggedIn) {
     handleTokenCheck();
     if (isLoggedIn) {
-      // navigate('/movies');
     }
     localStorage.setItem('chooseShort', false);
-    // }
   }, [isLoggedIn]);
 
   // получаем пользователя и все фильмы с сервера и фильмы юзера
@@ -188,6 +186,7 @@ function App() {
         .finally(() => {});
     }
   }, [isLoggedIn]);
+
   function finishSearch() {
     setTimeout(() => {
       setisLoading(false);
@@ -236,7 +235,7 @@ function App() {
       });
   };
   //добавить фильм в список пользователя
-  const handleAddToUserList = (
+  function handleAddToUserList(
     country,
     director,
     duration,
@@ -248,7 +247,7 @@ function App() {
     nameRU,
     nameEN,
     token
-  ) => {
+  ) {
     mainApi
       .addMovieToUserList(
         country,
@@ -264,13 +263,20 @@ function App() {
         token
       )
       .then((film) => {
-        setUserFilms([...userFilms, film]);
+        newUserListPlus(film);
       })
       .catch((err) => {
         console.error(err);
       });
-  };
-  const handleDeleteMovie = (token, movie) => {
+  }
+  function newUserListPlus(item) {
+    setUserFilms([...userFilms, item]);
+  }
+  function newUserList(id) {
+    const updatedUserMovies = userFilms.filter((data) => data._id !== id);
+    setUserFilms(updatedUserMovies);
+  }
+  function handleDeleteMovie(token, movie) {
     let idishechka;
     if (currentPath === '/movies') {
       let deleteMovie = userFilms.filter(
@@ -283,15 +289,16 @@ function App() {
     mainApi
       .deleteMovie(token, idishechka)
       .then(() => {
-        const updatedUserMovies = userFilms.filter(
-          (data) => data._id !== idishechka
-        );
-        setUserFilms(updatedUserMovies);
+        newUserList(idishechka);
+        // const updatedUserMovies = userFilms.filter(
+        //   (data) => data._id !== idishechka
+        // );
+        // setUserFilms(...userFilms, updatedUserMovies);
       })
       .catch((err) => {
         console.error(err);
       });
-  };
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -17,6 +17,7 @@ export default function SavedMovies({
   activeChooseShort,
   findMovies,
   findMoviesUser,
+  
 }) {
   return (
     <div className='page__wrapper'>
