@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './MoviesCard.css';
 import me from '../../images/IMG_3459.jpg';
 
@@ -22,7 +22,7 @@ export default function MoviesCard({
     nameEN,
     image,
   } = film;
-
+  useEffect(() => {}, [isLiked]);
   const isLiked = savedFilms.some((item) => Number(item.movieId) === film.id);
   const token = localStorage.getItem('jwt');
   function onDeleteMovieFromUser() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Register.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 
 export default function Register({ loggedIn, onRegister }) {
@@ -23,7 +23,9 @@ export default function Register({ loggedIn, onRegister }) {
       password: values.password,
     });
   };
-
+  if (loggedIn) {
+    return <Navigate to='/' />;
+  }
   return (
     <div className='register'>
       <a href='/' className='register__wrapper-logo'>

@@ -85,6 +85,7 @@ function App() {
     setSearchFilms([]);
     setUserFilms([]);
     setSearchValue('');
+    console.log('out');
     navigate('/');
   };
   //добавляем фильм в хранилище

@@ -1,9 +1,9 @@
 import React from 'react';
 import './Login.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, loggedIn }) {
   const {
     values,
     errors,
@@ -13,17 +13,30 @@ export default function Login({ onLogin }) {
     resetForm,
     setIsValid,
     setErrors,
+    newErrors,
   } = useForm();
   const navigate = useNavigate();
-
+  function isEmail(email) {
+    let regEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!regEmail.test(email)) {
+      setErrors();
+      return 'Invalid Email';
+    }
+  }
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    // navigate('/movies');
+    if (isEmail(values.email) === 'Invalid Email') {
+      console.log('wrong');
+    }
     onLogin({
       email: values.email,
       password: values.password,
     });
   };
+  if (loggedIn) {
+    return <Navigate to='/' />;
+  }
   return (
     <div className='register'>
       <a href='/' className='register__wrapper-logo'>
