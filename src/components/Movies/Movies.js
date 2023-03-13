@@ -24,6 +24,7 @@ export default function Movies({
   onDeleteMovie,
   error,
   errorRequest,
+  showUserFilms,
 }) {
   return (
     <div className='page__wrapper'>
@@ -47,6 +48,7 @@ export default function Movies({
           <Preloader />
         ) : (
           <MoviesCardList
+            showUserFilms={showUserFilms}
             onDeleteMovie={onDeleteMovie}
             savedFilms={savedFilms}
             showMoreFilms={showMoreFilms}

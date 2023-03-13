@@ -33,8 +33,6 @@ function App() {
   const [searchFilms, setSearchFilms] = useState([]);
   //фильмы в локал сторадж
   const storageFilms = JSON.parse(localStorage.getItem('films'));
-  //состояние чекбокса
-  const [chooseShort, setChooseShort] = useState(localStorage.chooseShort);
   //поисковой запрос
   const [searchValue, setSearchValue] = useState(localStorage.search);
   //пользователь
@@ -270,11 +268,11 @@ function App() {
       });
   }
   function newUserListPlus(item) {
-    setUserFilms([...userFilms, item]);
+    setShowUserFilms([...userFilms, item]);
   }
   function newUserList(id) {
     const updatedUserMovies = userFilms.filter((data) => data._id !== id);
-    setUserFilms(updatedUserMovies);
+    setShowUserFilms(updatedUserMovies);
   }
   function handleDeleteMovie(token, movie) {
     let idishechka;
@@ -290,10 +288,6 @@ function App() {
       .deleteMovie(token, idishechka)
       .then(() => {
         newUserList(idishechka);
-        // const updatedUserMovies = userFilms.filter(
-        //   (data) => data._id !== idishechka
-        // );
-        // setUserFilms(...userFilms, updatedUserMovies);
       })
       .catch((err) => {
         console.error(err);
@@ -321,6 +315,7 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <Movies
+                showUserFilms={showUserFilms}
                   errorRequest={errorRequest}
                   error={error}
                   onDeleteMovie={handleDeleteMovie}
@@ -350,7 +345,6 @@ function App() {
                   findMoviesUser={findMoviesUser}
                   onDeleteMovie={handleDeleteMovie}
                   checkedOrNotCheched={checkedOrNotCheched}
-                  isChooseShort={chooseShort}
                   activeChooseShort={handleChooseShortMovies}
                   currentPath={currentPath}
                   movies={showUserFilms}
@@ -360,6 +354,8 @@ function App() {
                   breakpointTable={breakpointTable}
                   breakpointMobile={breakpointMobile}
                   loggedIn={isLoggedIn}
+                  setUserFilms={setUserFilms}
+                  userFilms={userFilms}
                 />
               </ProtectedRoute>
             }

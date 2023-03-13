@@ -67,7 +67,7 @@ export default function SearchForm({
                 <span className='search__input-error'>Enter request</span>
               )
             : ''}
-          {storageFilms && isLoading === false &&  storageFilms.length < 1 ? (
+          {storageFilms && isLoading === false && storageFilms.length < 1 ? (
             <p>Ничего не найдено</p>
           ) : (
             ''

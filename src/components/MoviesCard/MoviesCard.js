@@ -11,6 +11,7 @@ export default function MoviesCard({
   currentPath,
   onDeleteMovie,
   savedFilms,
+  showUserFilms,
 }) {
   const {
     country,
@@ -22,8 +23,10 @@ export default function MoviesCard({
     nameEN,
     image,
   } = film;
-
-  const isLiked = savedFilms.some((item) => Number(item.movieId) === film.id);
+  console.log(showUserFilms);
+  const isLiked = showUserFilms
+    ? showUserFilms.some((item) => Number(item.movieId) === film.id)
+    : '';
   const token = localStorage.getItem('jwt');
   function onDeleteMovieFromUser() {
     onDeleteMovie(token, film);

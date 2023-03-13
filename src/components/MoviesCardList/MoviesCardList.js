@@ -10,7 +10,9 @@ export default function MoviesCardList({
   renderedFilms,
   showMoreFilms,
   onDeleteMovie,
-  
+  setUserFilms,
+  userFilms,
+  showUserFilms,
 }) {
   return (
     <ul className='movies-card-list'>
@@ -19,6 +21,9 @@ export default function MoviesCardList({
             .map((film) => {
               return (
                 <MoviesCard
+                  showUserFilms={showUserFilms}
+                  setUserFilms={setUserFilms}
+                  userFilms={userFilms}
                   onDeleteMovie={onDeleteMovie}
                   savedFilms={savedFilms}
                   currentPath={currentPath}
@@ -36,6 +41,8 @@ export default function MoviesCardList({
         ? savedFilms.map((film) => {
             return (
               <MoviesCard
+                setUserFilms={setUserFilms}
+                userFilms={userFilms}
                 savedFilms={savedFilms}
                 onDeleteMovie={onDeleteMovie}
                 currentPath={currentPath}

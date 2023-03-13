@@ -17,7 +17,8 @@ export default function SavedMovies({
   activeChooseShort,
   findMovies,
   findMoviesUser,
-  
+  setUserFilms,
+  userFilms,
 }) {
   return (
     <div className='page__wrapper'>
@@ -35,6 +36,8 @@ export default function SavedMovies({
           findMovies={findMovies}
         />
         <MoviesCardList
+          setUserFilms={setUserFilms}
+          userFilms={userFilms}
           onDeleteMovie={onDeleteMovie}
           currentPath={currentPath}
           savedFilms={movies}
