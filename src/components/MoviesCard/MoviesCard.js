@@ -22,7 +22,7 @@ export default function MoviesCard({
     nameEN,
     image,
   } = film;
-  useEffect(() => {}, [isLiked]);
+  // useEffect(() => {}, [isLiked]);
   const isLiked = savedFilms.some((item) => Number(item.movieId) === film.id);
   const token = localStorage.getItem('jwt');
   function onDeleteMovieFromUser() {

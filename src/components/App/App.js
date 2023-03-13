@@ -121,7 +121,11 @@ function App() {
     setisLoading(true);
     if (chooseShort === true) {
       const findFilms = allFilms.filter(
-        (el) => el.nameEN.includes(string) && el.duration < 41
+        (el) =>
+          (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
+            el.duration < 41) ||
+          (el.nameRU.toLowerCase().includes(string.toLowerCase()) &&
+            el.duration < 41)
       );
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
@@ -133,7 +137,11 @@ function App() {
 
       setSearchFilms([]);
     } else {
-      const findFilms = allFilms.filter((el) => el.nameEN.includes(string));
+      const findFilms = allFilms.filter(
+        (el) =>
+          el.nameEN.toLowerCase().includes(string.toLowerCase()) ||
+          el.nameRU.toLowerCase().includes(string.toLowerCase())
+      );
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
       finishSearch();
