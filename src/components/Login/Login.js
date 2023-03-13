@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
@@ -15,20 +15,22 @@ export default function Login({ onLogin, loggedIn }) {
     setErrors,
     newErrors,
   } = useForm();
-  const navigate = useNavigate();
-  function isEmail(email) {
+  const [emailWrong, setemailWrong] = useState('false');
+
+  useEffect(() => {
     let regEmail =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!regEmail.test(email)) {
-      setErrors();
-      return 'Invalid Email';
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    if (!regEmail.test(values.email)) {
+      setemailWrong(true);
+      // newErrors = false;
+      console.log('wrong');
+      console.log(emailWrong);
+    } else {
+      setemailWrong(false);
     }
-  }
+  }, [handleChange]);
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (isEmail(values.email) === 'Invalid Email') {
-      console.log('wrong');
-    }
     onLogin({
       email: values.email,
       password: values.password,
@@ -58,8 +60,8 @@ export default function Login({ onLogin, loggedIn }) {
             onChange={handleChange}
             placeholder='Email'
           />
-          {errors.email && (
-            <span className='register__input-error'>{errors.email}</span>
+          {emailWrong === true && (
+            <span className='register__input-error'>Некорректный адрес</span>
           )}
         </div>
         <div className='register__container'>
@@ -86,7 +88,7 @@ export default function Login({ onLogin, loggedIn }) {
           type='submit'
           className='register__submit'
           onClick={handleSubmit}
-          disabled={!isValid}
+          disabled={!isValid || emailWrong}
         >
           Sign in
         </button>

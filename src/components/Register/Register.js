@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Register.css';
 import { Link, Navigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
@@ -14,6 +14,19 @@ export default function Register({ loggedIn, onRegister }) {
     setIsValid,
     setErrors,
   } = useForm();
+  const [emailWrong, setemailWrong] = useState('false');
+  useEffect(() => {
+    let regEmail =
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    if (!regEmail.test(values.email)) {
+      setemailWrong(true);
+      // newErrors = false;
+      console.log('wrong');
+      console.log(emailWrong);
+    } else {
+      setemailWrong(false);
+    }
+  }, [handleChange]);
   const handleSubmit = (evt) => {
     evt.preventDefault();
     console.log(evt);
@@ -66,8 +79,8 @@ export default function Register({ loggedIn, onRegister }) {
             placeholder='Email'
             type='email'
           />
-          {errors.email && (
-            <span className='register__input-error'>{errors.email}</span>
+          {emailWrong === true && (
+            <span className='register__input-error'>Некорректный адрес</span>
           )}
         </div>
         <div className='register__container'>
@@ -94,7 +107,7 @@ export default function Register({ loggedIn, onRegister }) {
           type='submit'
           className='register__submit'
           onClick={handleSubmit}
-          disabled={!isValid}
+          disabled={!isValid || emailWrong}
         >
           Sign up
         </button>
