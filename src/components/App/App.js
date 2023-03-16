@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Main from '../Main/Main';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
@@ -22,7 +22,6 @@ function App() {
   const currentPath = location.pathname;
   const breakpointTable = 1023;
   const breakpointMobile = 768;
-  //массивы фильмов
   //получаем все фильмы
   const [allFilms, setAllFilms] = useState([]);
   //фильмы пользователя
@@ -39,6 +38,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   //статус логина
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(isLoggedIn);
   //movies on page
   const [renderedFilms, setRenderedFilms] = useState(3);
   //устанавливаем ширину для отображения блоков
@@ -77,6 +77,7 @@ function App() {
     localStorage.removeItem('search');
     localStorage.removeItem('name');
     localStorage.removeItem('searchedFilms');
+    localStorage.removeItem('loggedIn');
     setIsLoggedIn(false);
     setCurrentUser(null);
     localStorage.clear();
@@ -94,9 +95,12 @@ function App() {
   const handleTokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
-      return;
+      setIsLoggedIn(false);
+      // return;
+    } else {
+      localStorage.setItem('loggedIn', true);
+      setIsLoggedIn(true);
     }
-    setIsLoggedIn(true);
   };
   //показываем больше фильмов
   function handleShowMoreFilms() {
@@ -313,28 +317,31 @@ function App() {
           <Route
             path='/movies'
             element={
-              <ProtectedRoute loggedIn={isLoggedIn}>
-                <Movies
-                showUserFilms={showUserFilms}
-                  errorRequest={errorRequest}
-                  error={error}
-                  onDeleteMovie={handleDeleteMovie}
-                  showMoreFilms={handleShowMoreFilms}
-                  renderedFilms={renderedFilms}
-                  isLoading={isLoading}
-                  storageFilms={storageFilms}
-                  currentPath={currentPath}
-                  activeChooseShort={handleChooseShortMovies}
-                  addToUserList={handleAddToUserList}
-                  findMovies={findMovies}
-                  openMenu={handleOpenMenu}
-                  width={width}
-                  breakpointTable={breakpointTable}
-                  loggedIn={isLoggedIn}
-                  breakpointMobile={breakpointMobile}
-                  savedFilms={userFilms}
-                />
-              </ProtectedRoute>
+              <ProtectedRoute
+                children={
+                  <Movies
+                    showUserFilms={showUserFilms}
+                    errorRequest={errorRequest}
+                    error={error}
+                    onDeleteMovie={handleDeleteMovie}
+                    showMoreFilms={handleShowMoreFilms}
+                    renderedFilms={renderedFilms}
+                    isLoading={isLoading}
+                    storageFilms={storageFilms}
+                    currentPath={currentPath}
+                    activeChooseShort={handleChooseShortMovies}
+                    addToUserList={handleAddToUserList}
+                    findMovies={findMovies}
+                    openMenu={handleOpenMenu}
+                    width={width}
+                    breakpointTable={breakpointTable}
+                    loggedIn={isLoggedIn}
+                    breakpointMobile={breakpointMobile}
+                    savedFilms={userFilms}
+                  />
+                }
+                loggedIn={isLoggedIn}
+              ></ProtectedRoute>
             }
           ></Route>
           <Route

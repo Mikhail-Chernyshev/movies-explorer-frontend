@@ -7,7 +7,7 @@ export default function Header({ loggedIn, width, breakpointTable, openMenu }) {
   return (
     <header className='header'>
       <Link to='/' className='header__logo'></Link>
-      {loggedIn ? (
+      {loggedIn === true ? (
         <Navigation
           openMenu={openMenu}
           width={width}

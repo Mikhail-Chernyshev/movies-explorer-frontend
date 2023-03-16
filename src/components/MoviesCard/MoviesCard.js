@@ -23,7 +23,6 @@ export default function MoviesCard({
     nameEN,
     image,
   } = film;
-  console.log(showUserFilms);
   const isLiked = showUserFilms
     ? showUserFilms.some((item) => Number(item.movieId) === film.id)
     : '';

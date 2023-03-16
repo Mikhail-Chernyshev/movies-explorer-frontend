@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function ProtectedRoute({ loggedIn, children }) {
-  if (!loggedIn) {
-    return <Navigate to='/' />;
-  }
-  return children;
+function ProtectedRoute({ children }) {
+  const value = useContext(CurrentUserContext);
+  console.log(value);
+  return !localStorage.loggedIn ? <Navigate to='/' /> : children;
 }
 
 export default ProtectedRoute;
