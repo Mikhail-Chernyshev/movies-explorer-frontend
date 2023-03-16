@@ -76,6 +76,7 @@
 }
 
 .search__switch {
+  /* transform: rotate(180deg) scaleX(-1); */
   margin: 94px 0 0 0;
   padding: 0;
   position: relative;
@@ -114,7 +115,7 @@
   left: 4px;
   top: 2px;
   /* bottom: 4px; */
-  background-color: white;
+  background-color: #2be080;
   /* background-color: #2BE080; */
   /* background-color: #2196f3; */
   -webkit-transition: 0.4s;

@@ -16,7 +16,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-  console.log(localStorage);
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
@@ -38,7 +37,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   //статус логина
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(isLoggedIn);
   //movies on page
   const [renderedFilms, setRenderedFilms] = useState(3);
   //устанавливаем ширину для отображения блоков
@@ -50,6 +48,7 @@ function App() {
   //error
   const [error, setError] = useState('');
   const [errorRequest, seterrorRequest] = useState(false);
+  const [chooseShort, setchooseShort] = useState(false);
   //токен
   const token = localStorage.getItem('jwt');
   //функции для стейтов
@@ -109,12 +108,14 @@ function App() {
 
   //переключаем стейт чекбокса
   const handleChooseShortMovies = () => {
-    if (localStorage.chooseShort === 'false') {
+    if (currentPath === '/saved-movies') {
+      setchooseShort(!chooseShort);
+    } else if (localStorage.chooseShort === 'true') {
       // setChooseShort(true);
-      localStorage.setItem('chooseShort', JSON.stringify(true));
+      localStorage.setItem('chooseShort', JSON.stringify(false));
     } else {
       // setChooseShort(false);
-      localStorage.setItem('chooseShort', JSON.stringify(false));
+      localStorage.setItem('chooseShort', JSON.stringify(true));
     }
   };
   //ищем фильмы в поиске
@@ -140,8 +141,10 @@ function App() {
     } else {
       const findFilms = allFilms.filter(
         (el) =>
-          el.nameEN.toLowerCase().includes(string.toLowerCase()) ||
-          el.nameRU.toLowerCase().includes(string.toLowerCase())
+          (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
+            el.duration > 41) ||
+          (el.nameRU.toLowerCase().includes(string.toLowerCase()) &&
+            el.duration > 41)
       );
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
@@ -150,12 +153,27 @@ function App() {
   };
 
   const findMoviesUser = (string) => {
-    if (localStorage.chooseShort === 'true') {
+    console.log(chooseShort);
+    if (chooseShort === true) {
       setShowUserFilms(
-        userFilms.filter((el) => el.nameEN.includes(string) && el.duration < 41)
+        userFilms.filter(
+          (el) =>
+            (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
+              el.duration < 41) ||
+            (el.nameRU.toLowerCase().includes(string.toLowerCase()) &&
+              el.duration < 41)
+        )
       );
     } else {
-      setShowUserFilms(userFilms.filter((el) => el.nameEN.includes(string)));
+      setShowUserFilms(
+        userFilms.filter(
+          (el) =>
+            (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
+              el.duration > 41) ||
+            (el.nameRU.toLowerCase().includes(string.toLowerCase()) &&
+              el.duration > 41)
+        )
+      );
     }
   };
   //эффекты
@@ -349,6 +367,7 @@ function App() {
             element={
               <ProtectedRoute loggedIn={isLoggedIn}>
                 <SavedMovies
+                  chooseShort={chooseShort}
                   findMoviesUser={findMoviesUser}
                   onDeleteMovie={handleDeleteMovie}
                   checkedOrNotCheched={checkedOrNotCheched}

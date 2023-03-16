@@ -15,11 +15,14 @@ export default function SavedMovies({
   movies,
   currentPath,
   activeChooseShort,
-  findMovies,
+  // findMovies,
   findMoviesUser,
   setUserFilms,
   userFilms,
+  chooseShort,
 }) {
+  console.log(userFilms);
+  console.log(movies);
   return (
     <div className='page__wrapper'>
       <Header
@@ -30,10 +33,11 @@ export default function SavedMovies({
       />
       <div className='main'>
         <SearchForm
+          chooseShort={chooseShort}
           findMoviesUser={findMoviesUser}
           currentPath={currentPath}
           activeChooseShort={activeChooseShort}
-          findMovies={findMovies}
+          // findMovies={findMovies}
         />
         <MoviesCardList
           setUserFilms={setUserFilms}

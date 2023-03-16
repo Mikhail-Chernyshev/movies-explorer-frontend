@@ -11,11 +11,12 @@ export default function SearchForm({
   storageFilms,
   isLoading,
   errorRequest,
+  chooseShort,
 }) {
-  const checked =
-    currentPath === '/movies' || localStorage.getItem('chooseShort')
-      ? JSON.parse(localStorage.chooseShort)
-      : '';
+  console.log(localStorage);
+  const checkedOnMovie =
+    localStorage.chooseShort !== 'undefined' ? localStorage.chooseShort : false;
+  const checked = currentPath === '/movies' ? checkedOnMovie : !chooseShort;
   const { values, handleChange, errors, setValues, setErrors, isValid } =
     useForm();
   function handleCheckbox() {
