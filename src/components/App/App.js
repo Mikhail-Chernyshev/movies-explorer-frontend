@@ -141,10 +141,8 @@ function App() {
     } else {
       const findFilms = allFilms.filter(
         (el) =>
-          (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
-            el.duration > 41) ||
-          (el.nameRU.toLowerCase().includes(string.toLowerCase()) &&
-            el.duration > 41)
+          el.nameEN.toLowerCase().includes(string.toLowerCase()) ||
+          el.nameRU.toLowerCase().includes(string.toLowerCase())
       );
       addFilmToStorage(findFilms);
       setSearchFilms(findFilms);
@@ -168,10 +166,8 @@ function App() {
       setShowUserFilms(
         userFilms.filter(
           (el) =>
-            (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
-              el.duration > 41) ||
-            (el.nameRU.toLowerCase().includes(string.toLowerCase()) &&
-              el.duration > 41)
+            el.nameEN.toLowerCase().includes(string.toLowerCase()) ||
+            el.nameRU.toLowerCase().includes(string.toLowerCase())
         )
       );
     }
@@ -283,18 +279,34 @@ function App() {
         token
       )
       .then((film) => {
-        newUserListPlus(film);
+        //  const newMovies =  mainApi.getUserFilms(token);
+        // setUserFilms([...newMovies, film]);
+        newUserListPlus();
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally((film) => {
+        console.log(film);
+        // newUserListPlus(film);
       });
   }
-  function newUserListPlus(item) {
-    setShowUserFilms([...userFilms, item]);
+
+  function newUserListPlus() {
+    mainApi
+      .getUserFilms(token)
+      .then((res) => {
+        setUserFilms(res);
+        setShowUserFilms(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   function newUserList(id) {
     const updatedUserMovies = userFilms.filter((data) => data._id !== id);
     setShowUserFilms(updatedUserMovies);
+    setUserFilms(updatedUserMovies);
   }
   function handleDeleteMovie(token, movie) {
     let idishechka;

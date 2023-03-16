@@ -14,6 +14,7 @@ export default function MoviesCardList({
   userFilms,
   showUserFilms,
 }) {
+  // console.log(savedFilms)
   return (
     <ul className='movies-card-list'>
       {currentPath === '/movies' && storageFilms

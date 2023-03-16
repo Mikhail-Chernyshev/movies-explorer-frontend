@@ -37,7 +37,6 @@ export default function SavedMovies({
           findMoviesUser={findMoviesUser}
           currentPath={currentPath}
           activeChooseShort={activeChooseShort}
-          // findMovies={findMovies}
         />
         <MoviesCardList
           setUserFilms={setUserFilms}
