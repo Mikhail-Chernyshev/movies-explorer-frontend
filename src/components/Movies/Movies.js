@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movies.css';
+import Preloader from '../Preloader/Preloader';
 
 export default function Movies({
   loggedIn,
@@ -11,12 +12,19 @@ export default function Movies({
   breakpointTable,
   openMenu,
   breakpointMobile,
-  getAllMovies,
-  films,
-  // setSearch,
   findMovies,
-  searchFilms,
   addToUserList,
+  activeChooseShort,
+  storageFilms,
+  currentPath,
+  isLoading,
+  renderedFilms,
+  showMoreFilms,
+  savedFilms,
+  onDeleteMovie,
+  error,
+  errorRequest,
+  showUserFilms,
 }) {
   return (
     <div className='page__wrapper'>
@@ -28,17 +36,28 @@ export default function Movies({
       />
       <div className='main'>
         <SearchForm
+          errorRequest={errorRequest}
+          isLoading={isLoading}
+          storageFilms={storageFilms}
+          errorr={error}
+          activeChooseShort={activeChooseShort}
           findMovies={findMovies}
-          // setSearch={setSearch}
-          getAllMovies={getAllMovies}
+          currentPath={currentPath}
         />
-        <MoviesCardList
-          addToUserList={addToUserList}
-          searchFilms={searchFilms}
-          films={films}
-          width={width}
-          breakpointTable={breakpointTable}
-        />
+        {isLoading === true ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList
+            showUserFilms={showUserFilms}
+            onDeleteMovie={onDeleteMovie}
+            savedFilms={savedFilms}
+            showMoreFilms={showMoreFilms}
+            renderedFilms={renderedFilms}
+            currentPath={currentPath}
+            storageFilms={storageFilms}
+            addToUserList={addToUserList}
+          />
+        )}
       </div>
 
       <Footer width={width} breakpointMobile={breakpointMobile} />

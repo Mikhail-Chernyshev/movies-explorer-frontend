@@ -1,15 +1,15 @@
 import { MOVIES_API } from './MoviesApi';
+const MOVIES_URL = 'https://api.nomoreparties.co/';
 
 export const MAIN_API = 'https://api.diplomachernyshev.nomoredomains.club';
 
-export function getUserFilms() {
+export function getUserFilms(token) {
   return fetch(`${MAIN_API}/movies`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       //   accept: '*/*',
-      authorization:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmN2Q3Y2M4OTU2ZmY3MGQyZTZmNDgiLCJpYXQiOjE2NzIyNDk2MzIsImV4cCI6MTY3Mjg1NDQzMn0.3xs-m5jf45pniAPxQydsSVpIkaLjdokhVIunVWmWirQ',
+      Authorization: `Bearer ${token}`,
     },
   })
     .then((response) => {
@@ -20,7 +20,7 @@ export function getUserFilms() {
     });
 }
 
-export function addMovieToUserList({
+export function addMovieToUserList(
   country,
   director,
   duration,
@@ -31,14 +31,14 @@ export function addMovieToUserList({
   id,
   nameRU,
   nameEN,
-}) {
+  token
+) {
   return fetch(`${MAIN_API}/movies`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       //   accept: '*/*',
-      authorization:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmN2Q3Y2M4OTU2ZmY3MGQyZTZmNDgiLCJpYXQiOjE2NzIyNDk2MzIsImV4cCI6MTY3Mjg1NDQzMn0.3xs-m5jf45pniAPxQydsSVpIkaLjdokhVIunVWmWirQ',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       country: country,
@@ -46,17 +46,33 @@ export function addMovieToUserList({
       duration: duration,
       year: year,
       description: description,
-      image: MOVIES_API + image.url,
+      image: MOVIES_URL + image,
       trailerLink: trailerLink,
-      thumbnail: MOVIES_API + image.previewUrl,
+      thumbnail: MOVIES_URL + image,
+      // thumbnail: MOVIES_URL,
       movieId: String(id),
       nameRU: nameRU,
-      owner: id,
       nameEN: nameEN,
     }),
   })
     .then((response) => {
       return response.json;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+export function deleteMovie(token, id) {
+  return fetch(`${MAIN_API}/movies/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      //   accept: '*/*',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
     })
     .catch((err) => {
       console.log(err);

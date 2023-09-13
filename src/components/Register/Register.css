@@ -4,6 +4,10 @@
   width: 396px;
   height: auto;
 }
+.register__wrapper-logo {
+  margin: 0;
+  padding: 0;
+}
 .register__logo {
   margin: 0 0 40px 0;
   padding: 0;
@@ -21,7 +25,7 @@
 .register__form {
   margin: 0;
   padding: 0;
-  height: 380px;
+  min-height: 340px;
 }
 .register__container {
   margin: 0;
@@ -72,7 +76,7 @@
   color: #000000;
 }
 .register__answer {
-  margin: 0;
+  margin: 20px 0 0 0;
   padding: 0;
   font-weight: 400;
   font-size: 14px;

@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 
-export default function Login({ onLogin }) {
-  const { values, errors, handleChange, isFormValid, resetForm } = useForm();
+export default function Login({ onLogin, loggedIn }) {
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    setValues,
+    resetForm,
+    setIsValid,
+    setErrors,
+    newErrors,
+  } = useForm();
+  const [emailWrong, setemailWrong] = useState('false');
+
+  useEffect(() => {
+    let regEmail =
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    if (!regEmail.test(values.email)) {
+      setemailWrong(true);
+      // newErrors = false;
+      console.log('wrong');
+      console.log(emailWrong);
+    } else {
+      setemailWrong(false);
+    }
+  }, [handleChange]);
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onLogin({
@@ -12,15 +36,20 @@ export default function Login({ onLogin }) {
       password: values.password,
     });
   };
+  if (loggedIn) {
+    return <Navigate to='/' />;
+  }
   return (
     <div className='register'>
-      <div className='register__logo '></div>
+      <a href='/' className='register__wrapper-logo'>
+        <div className='register__logo '></div>
+      </a>
       <h2 className='register__title'>Nice to see you!</h2>
       <form className='register__form' noValidate>
         <div className='register__container'>
           <label className='register__label'>Email</label>
           <input
-            type='text'
+            type='email'
             id='email-input'
             minLength='2 '
             maxLength='400'
@@ -31,15 +60,15 @@ export default function Login({ onLogin }) {
             onChange={handleChange}
             placeholder='Email'
           />
-          {errors.email && (
-            <span className='register__input-error'>{errors.email}</span>
+          {emailWrong === true && (
+            <span className='register__input-error'>Некорректный адрес</span>
           )}
         </div>
         <div className='register__container'>
           <label className='register__label'>Password</label>
 
           <input
-            type='text'
+            type='password'
             id='password-input'
             minLength='2 '
             maxLength='400'
@@ -50,8 +79,8 @@ export default function Login({ onLogin }) {
             onChange={handleChange}
             placeholder='Password'
           />
-          {errors.email && (
-            <span className='register__input-error'>{errors.email}</span>
+          {errors.password && (
+            <span className='register__input-error'>{errors.password}</span>
           )}
         </div>
 
@@ -59,7 +88,7 @@ export default function Login({ onLogin }) {
           type='submit'
           className='register__submit'
           onClick={handleSubmit}
-          disabled={!isFormValid}
+          disabled={!isValid || emailWrong}
         >
           Sign in
         </button>

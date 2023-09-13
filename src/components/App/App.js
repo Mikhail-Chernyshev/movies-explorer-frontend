@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Main from '../Main/Main';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -12,73 +12,219 @@ import PopupMenu from '../PopupMenu/PopupMenu';
 import * as moviesApi from '../../utils/api/MoviesApi';
 import * as mainApi from '../../utils/api/MainApi';
 import * as authApi from '../../utils/api/AuthUpi';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [width, setWidth] = useState(window.innerWidth);
-  const [isOpenMenu, setisOpenMenu] = useState(false);
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const breakpointTable = 1023;
+  const breakpointMobile = 768;
+  //получаем все фильмы
   const [allFilms, setAllFilms] = useState([]);
+  //фильмы пользователя
   const [userFilms, setUserFilms] = useState([]);
-  // const [searchString, setSearchString] = useState('second');
+  //show
+  const [showUserFilms, setShowUserFilms] = useState([]);
+  //фильмы найденные юзером - их передаем в сторадж
   const [searchFilms, setSearchFilms] = useState([]);
-
+  //фильмы в локал сторадж
+  const storageFilms = JSON.parse(localStorage.getItem('films'));
+  //поисковой запрос
+  const [searchValue, setSearchValue] = useState(localStorage.search);
+  //пользователь
+  const [currentUser, setCurrentUser] = useState({});
+  //статус логина
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //movies on page
+  const [renderedFilms, setRenderedFilms] = useState(3);
+  //устанавливаем ширину для отображения блоков
+  const [width, setWidth] = useState(window.innerWidth);
+  //открываем меню
+  const [isOpenMenu, setisOpenMenu] = useState(false);
+  //loading преолоадер
+  const [isLoading, setisLoading] = useState(false);
+  //error
+  const [error, setError] = useState('');
+  const [errorRequest, seterrorRequest] = useState(false);
+  const [chooseShort, setchooseShort] = useState(false);
+  //токен
+  const token = localStorage.getItem('jwt');
+  //функции для стейтов
+  //устанавливаем состояние чекбокса
+  const checkedOrNotCheched = () => {
+    if (localStorage.chooseShort === 'true') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  //открываем меню
   const handleOpenMenu = () => {
     setisOpenMenu(true);
   };
+  //закрываем меню
   const handleCloseMenu = () => {
     setisOpenMenu(false);
   };
-  // const handleSetSearch = (string) => {
-  //   setSearchString(string);
-  // };
-  const breakpointTable = 1023;
-  const breakpointMobile = 768;
-  // useEffect(() => {
-  //   handleTokenCheck();
-  // }, [isLoggedIn]);
+  //выход
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('chooseShort');
+    localStorage.removeItem('checkbox');
+    localStorage.removeItem('search');
+    localStorage.removeItem('name');
+    localStorage.removeItem('searchedFilms');
+    localStorage.removeItem('loggedIn');
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    localStorage.clear();
+    setAllFilms([]);
+    setSearchFilms([]);
+    setUserFilms([]);
+    setSearchValue('');
+  };
+  //добавляем фильм в хранилище
+  const addFilmToStorage = (films) => {
+    localStorage.setItem('films', JSON.stringify(films));
+  };
+
+  //проверка токена
+  const handleTokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      setIsLoggedIn(false);
+      // return;
+    } else {
+      localStorage.setItem('loggedIn', true);
+      setIsLoggedIn(true);
+    }
+  };
+  //показываем больше фильмов
+  function handleShowMoreFilms() {
+    setRenderedFilms(renderedFilms + 3);
+  }
+
+  //переключаем стейт чекбокса
+  const handleChooseShortMovies = () => {
+    if (currentPath === '/saved-movies') {
+      setchooseShort(!chooseShort);
+    } else if (localStorage.chooseShort === 'true') {
+      // setChooseShort(true);
+      localStorage.setItem('chooseShort', JSON.stringify(false));
+    } else {
+      // setChooseShort(false);
+      localStorage.setItem('chooseShort', JSON.stringify(true));
+    }
+  };
+  //ищем фильмы в поиске
+  const findMovies = (string) => {
+    setisLoading(true);
+    if (localStorage.chooseShort === 'true') {
+      const findFilms = allFilms.filter(
+        (el) =>
+          (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
+            el.duration < 41) ||
+          (el.nameRU.toLowerCase().includes(string.toLowerCase()) &&
+            el.duration < 41)
+      );
+      addFilmToStorage(findFilms);
+      setSearchFilms(findFilms);
+      finishSearch();
+    } else if (string === '') {
+      // setError('Empty request');
+      const findFilms = allFilms.filter(
+        (el) =>
+          el.nameEN.toLowerCase().includes(string.toLowerCase()) ||
+          el.nameRU.toLowerCase().includes(string.toLowerCase())
+      );
+      addFilmToStorage(findFilms);
+      setSearchFilms(findFilms);
+      finishSearch();
+    } else {
+      const findFilms = allFilms.filter(
+        (el) =>
+          el.nameEN.toLowerCase().includes(string.toLowerCase()) ||
+          el.nameRU.toLowerCase().includes(string.toLowerCase())
+      );
+      addFilmToStorage(findFilms);
+      setSearchFilms(findFilms);
+      finishSearch();
+    }
+  };
+
+  const findMoviesUser = (string) => {
+    console.log(chooseShort);
+    if (chooseShort === true) {
+      setShowUserFilms(
+        userFilms.filter(
+          (el) =>
+            (el.nameEN.toLowerCase().includes(string.toLowerCase()) &&
+              el.duration < 41) ||
+            (el.nameRU.toLowerCase().includes(string.toLowerCase()) &&
+              el.duration < 41)
+        )
+      );
+    } else {
+      setShowUserFilms(
+        userFilms.filter(
+          (el) =>
+            el.nameEN.toLowerCase().includes(string.toLowerCase()) ||
+            el.nameRU.toLowerCase().includes(string.toLowerCase())
+        )
+      );
+    }
+  };
+  //эффекты
+  //проверяем токен
+  useEffect(() => {
+    handleTokenCheck();
+    if (isLoggedIn) {
+    }
+    localStorage.setItem('chooseShort', false);
+  }, [isLoggedIn]);
+
+  // получаем пользователя и все фильмы с сервера и фильмы юзера
+  useEffect(() => {
+    if (isLoggedIn) {
+      Promise.all([
+        authApi.getUserInfo(token),
+        mainApi.getUserFilms(token),
+        moviesApi.getMoviesFromDeatfilm(),
+      ])
+        .then(([user, userFilms, films]) => {
+          setCurrentUser(user);
+          setShowUserFilms(userFilms);
+          setUserFilms(userFilms);
+          setAllFilms(films);
+        })
+        .catch((err) => {
+          seterrorRequest(true);
+          console.log(err);
+        })
+        .finally(() => {});
+    }
+    if (localStorage.getItem('search') === null) {
+      console.log(123);
+      findMovies('');
+    }
+  }, [isLoggedIn]);
+  function finishSearch() {
+    setTimeout(() => {
+      setisLoading(false);
+    }, 1000);
+  }
+  //размер экрана
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
-    // subscribe to window resize event "onComponentDidMount"
     window.addEventListener('resize', handleResizeWindow);
     return () => {
-      // unsubscribe "onComponentDestroy"
       window.removeEventListener('resize', handleResizeWindow);
     };
   }, []);
-  // useEffect(() => {
-  //   moviesApi
-  //   .getMoviesFromDeatfilm()
-  //   .then((films) => {
-  //     console.log(films);
-  //     setAllFilms(films)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // }, [isLoggedIn, allFilms])
-  const getAllMovies = () => {
-    moviesApi
-      .getMoviesFromDeatfilm()
-      .then((films) => {
-        console.log(films);
-        setAllFilms(films);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const getUserMovies = () => {
-    mainApi
-      .getUserFilms()
-      .then((films) => {
-        console.log(films);
-        setUserFilms(films);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
+  //регистрация пользователя
   const handleRegister = (data) => {
     authApi
       .register(data)
@@ -89,121 +235,207 @@ function App() {
         console.log(err);
       });
   };
+  //авторизация пользователя
   const handleLogin = (data) => {
     authApi
       .login(data)
       .then((res) => {
         if (res.token) localStorage.setItem('jwt', res.token);
-        // setAuthEmail(data.email);
         setIsLoggedIn(true);
-        navigate('/');
+        navigate('/movies');
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
+  //редактируем пользователя
+  const handleEditUser = (data) => {
+    authApi
+      .editUserInfo(data)
+      .then((user) => setCurrentUser(user))
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  const handleTokenCheck = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      return;
-    }
-    setIsLoggedIn(true);
-    navigate('/');
-  };
-
-  const handleAddToUserList = (id) => {
+  //добавить фильм в список пользователя
+  function handleAddToUserList(
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    id,
+    nameRU,
+    nameEN,
+    token
+  ) {
     mainApi
-      .addMovieToUserList(id)
+      .addMovieToUserList(
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image,
+        trailerLink,
+        id,
+        nameRU,
+        nameEN,
+        token
+      )
       .then((film) => {
-        setUserFilms([film, ...userFilms]);
+        //  const newMovies =  mainApi.getUserFilms(token);
+        // setUserFilms([...newMovies, film]);
+        newUserListPlus();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally((film) => {
+        console.log(film);
+        // newUserListPlus(film);
+      });
+  }
+
+  function newUserListPlus() {
+    mainApi
+      .getUserFilms(token)
+      .then((res) => {
+        setUserFilms(res);
+        setShowUserFilms(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function newUserList(id) {
+    const updatedUserMovies = userFilms.filter((data) => data._id !== id);
+    setShowUserFilms(updatedUserMovies);
+    setUserFilms(updatedUserMovies);
+  }
+  function handleDeleteMovie(token, movie) {
+    let idishechka;
+    if (currentPath === '/movies') {
+      let deleteMovie = userFilms.filter(
+        (film) => Number(film.movieId) === movie.id
+      );
+      idishechka = deleteMovie[0]._id;
+    } else {
+      idishechka = movie._id;
+    }
+    mainApi
+      .deleteMovie(token, idishechka)
+      .then(() => {
+        newUserList(idishechka);
       })
       .catch((err) => {
         console.error(err);
       });
-  };
-  const findMovies = (string) => {
-    const findFilms = allFilms.filter((el) => el.nameEN.includes(string));
-    console.log(findFilms);
-    setSearchFilms(findFilms);
-  };
+  }
+
   return (
-    <div className='page'>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <Main
-              openMenu={handleOpenMenu}
-              width={width}
-              breakpointTable={breakpointTable}
-              loggedIn={isLoggedIn}
-              breakpointMobile={breakpointMobile}
-            />
-          }
-        ></Route>
-        <Route
-          path='/movies'
-          element={
-            <Movies
-              addToUserList={handleAddToUserList}
-              searchFilms={searchFilms}
-              findMovies={findMovies}
-              // setSearch={handleSetSearch}
-              films={allFilms}
-              getAllMovies={getAllMovies}
-              openMenu={handleOpenMenu}
-              width={width}
-              breakpointTable={breakpointTable}
-              loggedIn={isLoggedIn}
-              breakpointMobile={breakpointMobile}
-            />
-          }
-        ></Route>
-        <Route
-          path='/saved-movies'
-          element={
-            <SavedMovies
-              openMenu={handleOpenMenu}
-              width={width}
-              breakpointTable={breakpointTable}
-              breakpointMobile={breakpointMobile}
-              loggedIn={isLoggedIn}
-            />
-          }
-        ></Route>
-        <Route
-          path='/profile'
-          element={
-            <Profile
-              width={width}
-              breakpointTable={breakpointTable}
-              openMenu={handleOpenMenu}
-              loggedIn={isLoggedIn}
-            />
-          }
-        ></Route>
-        <Route
-          path='/signup'
-          element={
-            <Register onRegister={handleRegister} loggedIn={isLoggedIn} />
-          }
-        ></Route>
-        <Route
-          path='/signin'
-          element={<Login onLogin={handleLogin} loggedIn={isLoggedIn} />}
-        ></Route>
-        <Route
-          path='/*'
-          //  element={isLoggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />}
-          element={<NotFound />}
-        />
-      </Routes>
-      <PopupMenu closeMenu={handleCloseMenu} isOpen={isOpenMenu} />
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='page'>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <Main
+                openMenu={handleOpenMenu}
+                width={width}
+                breakpointTable={breakpointTable}
+                loggedIn={isLoggedIn}
+                breakpointMobile={breakpointMobile}
+              />
+            }
+          ></Route>
+          <Route
+            path='/movies'
+            element={
+              <ProtectedRoute
+                children={
+                  <Movies
+                    showUserFilms={showUserFilms}
+                    errorRequest={errorRequest}
+                    error={error}
+                    onDeleteMovie={handleDeleteMovie}
+                    showMoreFilms={handleShowMoreFilms}
+                    renderedFilms={renderedFilms}
+                    isLoading={isLoading}
+                    storageFilms={storageFilms}
+                    currentPath={currentPath}
+                    activeChooseShort={handleChooseShortMovies}
+                    addToUserList={handleAddToUserList}
+                    findMovies={findMovies}
+                    openMenu={handleOpenMenu}
+                    width={width}
+                    breakpointTable={breakpointTable}
+                    loggedIn={isLoggedIn}
+                    breakpointMobile={breakpointMobile}
+                    savedFilms={userFilms}
+                  />
+                }
+                loggedIn={isLoggedIn}
+              ></ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path='/saved-movies'
+            element={
+              <ProtectedRoute loggedIn={isLoggedIn}>
+                <SavedMovies
+                  chooseShort={chooseShort}
+                  findMoviesUser={findMoviesUser}
+                  onDeleteMovie={handleDeleteMovie}
+                  checkedOrNotCheched={checkedOrNotCheched}
+                  activeChooseShort={handleChooseShortMovies}
+                  currentPath={currentPath}
+                  movies={showUserFilms}
+                  openMenu={handleOpenMenu}
+                  findMovies={findMovies}
+                  width={width}
+                  breakpointTable={breakpointTable}
+                  breakpointMobile={breakpointMobile}
+                  loggedIn={isLoggedIn}
+                  setUserFilms={setUserFilms}
+                  userFilms={userFilms}
+                />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRoute loggedIn={isLoggedIn}>
+                <Profile
+                  user={currentUser}
+                  loggedOut={handleLogout}
+                  width={width}
+                  breakpointTable={breakpointTable}
+                  openMenu={handleOpenMenu}
+                  loggedIn={isLoggedIn}
+                  onEditUser={handleEditUser}
+                />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path='/signup'
+            element={
+              <Register onRegister={handleRegister} loggedIn={isLoggedIn} />
+            }
+          ></Route>
+          <Route
+            path='/signin'
+            element={<Login onLogin={handleLogin} loggedIn={isLoggedIn} />}
+          ></Route>
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
+        <PopupMenu closeMenu={handleCloseMenu} isOpen={isOpenMenu} />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

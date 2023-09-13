@@ -3,39 +3,33 @@ import { useState, useCallback } from 'react';
 const useForm = () => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isValid, setIsValid] = useState(true);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setValues({
-      ...values,
-      [name]: value,
-    });
-
-    setErrors({
-      ...errors,
-      [name]: event.target.validationMessage,
-    });
-
-    setIsFormValid(event.target.closest('.register__form').checkValidity());
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: evt.target.validationMessage });
+    setIsValid(evt.target.closest('.register__form').checkValidity());
   };
 
   const resetForm = useCallback(
-    (newValues = {}, newErrors = {}, newIsFormValid = false) => {
+    (newValues = {}, newErrors = {}, newIsValid = false) => {
       setValues(newValues);
       setErrors(newErrors);
-      setIsFormValid(newIsFormValid);
+      setIsValid(newIsValid);
     },
-    [setValues, setErrors, setIsFormValid]
+    [setValues, setErrors, setIsValid]
   );
 
   return {
     values,
-    errors,
     handleChange,
-    isFormValid,
+    errors,
+    isValid,
     resetForm,
+    setValues,
+    setIsValid,
+    setErrors,
   };
 };
 

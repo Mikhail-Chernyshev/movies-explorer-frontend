@@ -3,65 +3,75 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 export default function MoviesCardList({
-  width,
-  breakpointTable,
-  films,
   addToUserList,
-  searchFilms,
+  storageFilms,
+  currentPath,
+  savedFilms,
+  renderedFilms,
+  showMoreFilms,
+  onDeleteMovie,
+  setUserFilms,
+  userFilms,
+  showUserFilms,
 }) {
-  if (width > breakpointTable) {
-    return (
-      <ul className='movies-card-list'>
-        {/* {searchFilms */}
-        {/* ? searchFilms.map((film) => { */}
-        {/* return ( */}
-        <MoviesCard
-          addToUserList={addToUserList}
-          // id={film.id}
-          // key={film.id}
-          // duration={film.duration}
-          // image={film.image.url}
-          // name={film.nameEN}
-          // film={film}
-        />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-
-        {/* ); */}
-        {/* // }) */}
-        {/* : ''} */}
-        <div className='movies-card-list__else'>
-          <button className='movies-card-list__else-button'>Else</button>
-        </div>
-      </ul>
-    );
-  }
+  // console.log(savedFilms)
   return (
-    <section className='movies-card-list'>
-      {/* {searchFilms
-        ? searchFilms.map((film) => {
-            return <MoviesCard key={film.id} name={film.nameEn} />;
+    <ul className='movies-card-list'>
+      {currentPath === '/movies' && storageFilms
+        ? storageFilms
+            .map((film) => {
+              return (
+                <MoviesCard
+                  showUserFilms={showUserFilms}
+                  setUserFilms={setUserFilms}
+                  userFilms={userFilms}
+                  onDeleteMovie={onDeleteMovie}
+                  savedFilms={savedFilms}
+                  currentPath={currentPath}
+                  addToUserList={addToUserList}
+                  film={film}
+                  id={film.id}
+                  key={currentPath === '/movies' ? film.id : film._id}
+                  duration={film.duration}
+                  name={film.nameEN}
+                />
+              );
+            })
+            .slice(0, renderedFilms)
+        : currentPath === '/saved-movies' && savedFilms
+        ? savedFilms.map((film) => {
+            return (
+              <MoviesCard
+                setUserFilms={setUserFilms}
+                userFilms={userFilms}
+                savedFilms={savedFilms}
+                onDeleteMovie={onDeleteMovie}
+                currentPath={currentPath}
+                addToUserList={addToUserList}
+                id={film.id}
+                key={currentPath === '/movies' ? film.id : film._id}
+                duration={film.duration}
+                name={film.nameEN}
+                film={film}
+              />
+            );
           })
-        : ''} */}
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <div className='movies-card-list__else'>
-        <button className='movies-card-list__else-button'>Else</button>
-      </div>
-    </section>
+        : ''}
+
+      {currentPath === '/movies' &&
+      storageFilms &&
+      storageFilms.length > renderedFilms ? (
+        <div className='movies-card-list__else'>
+          <button
+            onClick={showMoreFilms}
+            className='movies-card-list__else-button'
+          >
+            Else
+          </button>
+        </div>
+      ) : (
+        ''
+      )}
+    </ul>
   );
 }
