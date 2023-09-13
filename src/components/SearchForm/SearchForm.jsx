@@ -14,6 +14,7 @@ export default function SearchForm({
   chooseShort,
 }) {
   console.log(localStorage);
+  console.log(storageFilms);
   const checkedOnMovie =
     localStorage.chooseShort !== 'undefined' ? localStorage.chooseShort : false;
   const checked = currentPath === '/movies' ? checkedOnMovie : !chooseShort;
@@ -64,17 +65,22 @@ export default function SearchForm({
             ></button>
           </form>
           {currentPath === '/movies'
-            ? errors.name && (
-                <span className='search__input-error'>Enter request</span>
+            ? errors.name &&
+              values.name !== '' && (
+                <span className='search__input-error'>
+                  Пожалуйста, введите название
+                </span>
               )
             : ''}
           {storageFilms && isLoading === false && storageFilms.length < 1 ? (
-            <p>Ничего не найдено</p>
+            <p className='search__input-error'>
+              Ничего не найдено, измените запрос
+            </p>
           ) : (
             ''
           )}
           {errorRequest === true ? (
-            <p>
+            <p className='search__input-error'>
               Во время запроса произошла ошибка. Возможно, проблема с
               соединением или сервер недоступен. Подождите немного и попробуйте
               ещё раз

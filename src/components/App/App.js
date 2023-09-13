@@ -133,11 +133,15 @@ function App() {
       setSearchFilms(findFilms);
       finishSearch();
     } else if (string === '') {
-      setError('Empty request');
+      // setError('Empty request');
+      const findFilms = allFilms.filter(
+        (el) =>
+          el.nameEN.toLowerCase().includes(string.toLowerCase()) ||
+          el.nameRU.toLowerCase().includes(string.toLowerCase())
+      );
+      addFilmToStorage(findFilms);
+      setSearchFilms(findFilms);
       finishSearch();
-      localStorage.setItem('films', JSON.stringify([]));
-
-      setSearchFilms([]);
     } else {
       const findFilms = allFilms.filter(
         (el) =>
@@ -201,8 +205,11 @@ function App() {
         })
         .finally(() => {});
     }
+    if (localStorage.getItem('search') === null) {
+      console.log(123);
+      findMovies('');
+    }
   }, [isLoggedIn]);
-
   function finishSearch() {
     setTimeout(() => {
       setisLoading(false);
